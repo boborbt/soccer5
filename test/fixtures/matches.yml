@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+match:
+  date: 2009-02-10
+  time: 2009-02-10 18:19:09
+  location: sporting

@@ -1,0 +1,13 @@
+<h1><%= @match.location.name %> on <%= @match.date.to_s(:short) %> at <%= @match.time.to_s %></h1>
+
+<h2>Players</h2>
+<% for invitation in @match.invitations do %>
+	<% div_for invitation.player do %> 
+		<%= invitation.player.name %> (<%= invitation.status %>)
+	<% end %>
+<% end %>
+
+<br/>
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>

@@ -1,0 +1,3 @@
+<%= form.label :date %>: <%= date_select(:match, :date) %> <br/>
+<%= form.label :time %>: <%= time_select(:match, :time)  %> <br/>
+<%= form.label :location %>: <%= collection_select(:match, :location_id, Location.find(:all), :id, :name, {:prompt => true})  %>

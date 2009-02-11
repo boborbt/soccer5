@@ -1,0 +1,7 @@
+<h1>Location <%=h @location.name %></h1>
+<p>
+Address: <%=h @location.address %>
+</p>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

@@ -1,0 +1,16 @@
+<p>
+  <%= form.label :name %><br />
+  <%= form.text_field :name %>
+</p>
+<p>
+  <%= form.label :user_id %><br />
+  <%= collection_select :player, :user_id, User.find(:all), :id, :login, {:prompt => true}  %>
+</p>
+<p>
+  <%= form.label :email %><br />
+  <%= form.text_field :email %>
+</p>
+<p>
+  <%= form.label :invite_always %><br />
+  <%= form.check_box :invite_always %>
+</p>
