@@ -87,4 +87,33 @@ class MatchesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  # --------------------------------------------------------------------------------
+  # NON CRUD 
+  # --------------------------------------------------------------------------------
+
+  def invite_player
+    @match = Match.find(params[:id])
+    @player = Player.find(params[:player_id])
+    @match.players << @player
+    render :partial => 'players_list'
+  end
+  
+  def uninvite_player
+    @match = Match.find(params[:id])
+    @player = Player.find(params[:player_id])
+    @match.players.delete( @player )
+    render :partial => 'players_list'    
+  end
+  
+  def accept_invitation
+    @match = Match.find(params[:id])
+    @match.accept_invitation( params[:acceptance_code] )
+  end
+
+  def reject_invitation
+    @match = Match.find(params[:id])
+    @match.reject_invitation( params[:refusal_code] )
+  end
+
 end

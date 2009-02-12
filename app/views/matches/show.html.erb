@@ -1,11 +1,6 @@
 <h1><%= @match.location.name %> on <%= @match.date.to_s(:short) %> at <%= @match.time.to_s %></h1>
 
-<h2>Players</h2>
-<% for invitation in @match.invitations do %>
-	<% div_for invitation.player do %> 
-		<%= invitation.player.name %> (<%= invitation.status %>)
-	<% end %>
-<% end %>
+<%= render :partial => 'players_list' %>
 
 <br/>
 
