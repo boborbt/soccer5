@@ -146,7 +146,7 @@ module RoleBasedAuthorization
     url_options = nil
     if opts.class == String
       path = opts
-      if path =~ %r{#{ActionController::AbstractRequest.relative_url_root}/(.*)}
+      if path =~ %r{#{ActionController::AbstractRequest.relative_url_root}(/.*)}
         path = $1
       end
       
