@@ -5,14 +5,16 @@ Per confermare la tua presenza (vedi anche la nota [1]) visita l'url:
 	<%= url_for :controller => :invitations, 
 				:action => :accept_invitation, 
 				:id => @invitation.acceptance_code,
-				:only_path => false %>
+				:only_path => false,
+				:protocol => 'https' %>
 
 per rifiutare l'invito e evitare ulteriori mail relative a questa partita 
 visita l'url (vedi anche la nota [2]):
 	<%= url_for :controller => :invitations, 
 				:action => :reject_invitation, 
 				:id => @invitation.refusal_code,
-				:only_path => false %>
+				:only_path => false,
+				:protocol => 'https' %>
 
 Note:	
 [1] i link si possono visitare più volte: ogni volta il sistema aggiornerà la scelta

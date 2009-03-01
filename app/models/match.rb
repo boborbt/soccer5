@@ -5,9 +5,9 @@ class Match < ActiveRecord::Base
   
   validates_presence_of :location
   
-  # def datetime
-  #   DateTime.new(date.year, date.month, date.day, time.hours, time.minutes)
-  # end
+  def datetime
+    DateTime.new(date.year, date.month, date.day, time.hour, time.min)
+  end
   
   def autoinvite_players
     Player.find_all_by_invite_always(true).each do |player|
