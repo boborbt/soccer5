@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include RoleBasedAuthorization
-  include ExceptionNotifiable  
+  # include ExceptionNotifiable  
   
   # checks for login && autorization
   before_filter :login_required
