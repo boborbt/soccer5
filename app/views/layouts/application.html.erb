@@ -12,7 +12,16 @@
 
 <p style="color: green"><%= flash[:notice] %></p>
 <% if logged_in? %>
-	<div id="status_box">You are logged in as:<%= current_user.login  %></div>
+	<div id="status_box">You are logged in as:<%= current_user.login  %>
+		<div id="quick-links">
+			<hr	>
+			Quick links<br/>
+			<ul><li><%= link_to 'matches', matches_path %></li>
+				<li><%= link_to 'players', players_path %></li>
+				<li><%= link_to 'locations', locations_path %></li>
+			</ul>
+		</div>
+	</div>
 <% end %>
 
 <%= yield  %>
