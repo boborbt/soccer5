@@ -1,0 +1,19 @@
+<% invitations.each_with_index do |invitation,index| %>
+	<%
+		quota_class ||= (index < @match.max_players && 'inquota') || 'overquota'
+	%>
+	<% div_for invitation.player, :class => quota_class do %> 
+		<%= index+1 %>.
+		<%= invitation.player.name %> 
+		( <%= invitation.status %> 
+		  <%= if invitation.status == 'accepted' then 'on '+invitation.accepted_at.to_s(:long) else '' end %> )
+		<%= if_authorized?(:controller => :matches, 
+						   :action => :uninvite_player, 
+						   :id => @match, 
+						   :player_id => invitation.player ) do |opts|
+			 	link_to_remote( "Un-invite", {
+								:url => url_for(opts),
+							    :update => 'player_list'} )
+		  	end %>
+	<% end %>
+<% end %>

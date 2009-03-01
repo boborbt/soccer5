@@ -1,0 +1,18 @@
+Ciao!
+	sei invitato per la partita del 2009-02-10 (ore 19:00:00).
+
+Per confermare la tua presenza (vedi anche la nota [1]) visita l'url:
+	http://test/invitations/accept_invitation/acceptance
+
+per rifiutare l'invito e evitare ulteriori mail relative a questa partita 
+visita l'url (vedi anche la nota [2]):
+	http://test/invitations/reject_invitation/reject
+
+Note:	
+[1] i link si possono visitare più volte: ogni volta il sistema aggiornerà la scelta
+	concordemente al link visitato. 
+[2] due giorni prima della partita, solo nel caso il numero dei partecipanti sia inferiore a 10,
+    verrà inviata una mail a tutti i giocatori che non hanno rifiutato questo invito.
+
+Ciao,
+	Roberto

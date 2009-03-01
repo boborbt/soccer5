@@ -1,4 +1,7 @@
 class MatchesController < ApplicationController
+  # authorize current and show actions to anybody, even if not logged in
+  skip_before_filter :login_required, :only => [:current, :show]
+  
   # GET /matches
   # GET /matches.xml
   def index
@@ -103,17 +106,6 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     @player = Player.find(params[:player_id])
     @match.players.delete( @player )
-    render :partial => 'players_list'    
+    render :partial => 'players_list'
   end
-  
-  def accept_invitation
-    @match = Match.find(params[:id])
-    @match.accept_invitation( params[:acceptance_code] )
-  end
-
-  def reject_invitation
-    @match = Match.find(params[:id])
-    @match.reject_invitation( params[:refusal_code] )
-  end
-
 end

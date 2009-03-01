@@ -1,0 +1,16 @@
+<% @invitations.each do |invitation| %>
+	<%= invitation.description %>
+	<%= link_to 'Accept',
+				:controller => :invitations, 
+				:action => :accept_invitation, 
+				:id => invitation.acceptance_code,
+				:only_path => false
+	%>
+	<%= link_to 'Reject',
+				:controller => :invitations, 
+				:action => :reject_invitation, 
+				:id => invitation.refusal_code,
+				:only_path => false
+	%><br/>
+	
+<% end %>

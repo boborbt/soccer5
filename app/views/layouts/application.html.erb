@@ -11,6 +11,9 @@
 <body>
 
 <p style="color: green"><%= flash[:notice] %></p>
+<% if logged_in? %>
+	<div id="status_box">You are logged in as:<%= current_user.login  %></div>
+<% end %>
 
 <%= yield  %>
 

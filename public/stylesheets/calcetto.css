@@ -1,0 +1,34 @@
+#status_box {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 100px;
+	border: 1px solid #999;
+	padding: 10px;
+}
+
+#invitations  {
+	margin-top: 2em;
+	padding: 10px;
+	border: 1px solid #999;
+}
+
+#invitations h2 {
+	margin-top: 5px;
+}
+
+#invitations .status .header {
+	font-weight: bold;
+}
+
+#invitations .status {
+	padding: 10px;
+}
+
+.player.inquota {
+	background-color: #CEFBC6;
+}
+
+.player.overquota {
+	background-color: #F7CCCC;
+}

@@ -1,4 +1,6 @@
-body { background-color: #fff; color: #333; }
+@import "calcetto.css";
+
+body { background-color: #fff; color: #000F67; }
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -12,9 +14,15 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a { color: #000F67; }
+a:visited { color: #266884; }
+a:hover { color: #001FE8;  }
+
+h1 { 
+	background-color: #fff; 
+	color: #000F67;
+}
+
 
 .fieldWithErrors {
   padding: 2px;
@@ -51,4 +59,3 @@ a:hover { color: #fff; background-color:#000; }
   font-size: 12px;
   list-style: square;
 }
-

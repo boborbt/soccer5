@@ -5,7 +5,7 @@
 
 <p>
   <b>User:</b>
-  <%=h @player.user.login %>
+  <%=h(@player.user.login) unless @player.user.nil? %>
 </p>
 
 <p>

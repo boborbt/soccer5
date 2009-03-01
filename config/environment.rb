@@ -10,6 +10,7 @@ RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -59,6 +60,39 @@ Rails::Initializer.run do |config|
     :secret      => 'c7a8756f28978ad5d4653d67c8fb4326a2d76597d5181381e4ede90ee7f69e4af8ae7d938b9b20e13f10a940e330cfa13d17861be09df9e0acda811ff6e91c34'
   }
   
+
+  # require 'tlsmail'
+  # Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+  # 
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.raise_delivery_errors = true   
+  # config.action_mailer.smtp_settings = {
+  #   :tls => true,
+  #   :address => "smtp.gmail.com", 
+  #   :port => 587, 
+  #   :domain => "gmail.com", 
+  #   :authentication => :plain, 
+  #   :user_name => "cemat.cat.test", 
+  #   :password => "aleniaspazio" 
+  # } 
+
+  require 'tlsmail'
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true   
+  config.action_mailer.smtp_settings = {
+    :tls => true,
+    :address => "smtp.gmail.com", 
+    :port => 587, 
+    :domain => "gmail.com", 
+    :authentication => :plain, 
+    :user_name => "boborbt@gmail.com", 
+    :password => "xhostbb50" 
+  } 
+
+
+  
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
@@ -73,3 +107,6 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
+
+ExceptionNotifier.exception_recipients = %w(esposito@di.unito.it)
+

@@ -1,28 +1,36 @@
 <div id="player_list">
-	<div id="invited players">
-		<h2>Invited players</h2>
-		<% for invitation in @match.invitations do %>
-			<% div_for invitation.player do %> 
-				<%= invitation.player.name %> (<%= invitation.status %>)
-				<%= link_to_remote "Un-invite", :url => url_for(:controller => :matches,
-				  							 				 :action => :uninvite_player,
-															 :id => @match,
-				 							 				 :player_id => invitation.player),
-											 :update => 'player_list' %>
-			<% end %>
-		<% end %>
+	<div id="invitations">
+		<h2>Invitations</h2>
+		<div class='status'>
+			<span class="header">Accepted</span>
+			<%= render :partial => 'player_list_generic', :locals => {:invitations => @match.accepted_invitations} %>
+		</div>
+		
+		<div class='status'>
+			<span class="header">Rejected</span>			
+			<%= render :partial => 'player_list_generic', 
+					   :locals => { :invitations => @match.rejected_invitations,
+									:quota_class => 'none' } %>
+		</div>
+		
+		<div class='status'>
+			<span class="header">Pending</span>
+			<%= render :partial => 'player_list_generic', 
+					   :locals => { :invitations => @match.unresponded_invitations,
+									:quota_class => 'none' } %>		
+		</div>
 	</div>
 
-	<div id="uninvited players">
-		<h2>Uninvited players</h2>
-		<% for player in (Player.find(:all) - @match.players) do %>
-			<% div_for player do %>
-				<%= player.name %> 
-				<%= link_to_remote "Invite", :url => url_for(:controller => :matches,
-				  							 				 :action => :invite_player,
-															 :id => @match,
-				 							 				 :player_id => player),
-											 :update => 'player_list' %>
+		<% if_authorized?(:controller => :matches, 
+						   :action => :invite_player, 
+						   :id => @match) do |opts| %>
+			<div id="uninvited players">		
+			<h2>Uninvited players</h2>
+			<% @match.uninvited_players.each do |player| %>
+				<% div_for player do %>
+					<%= player.name %> 
+					<%= link_to_remote "Invite", :url => url_for(opts.merge(:player_id => player)), :update => 'player_list' %>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>

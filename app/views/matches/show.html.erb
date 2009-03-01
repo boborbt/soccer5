@@ -1,8 +1,19 @@
-<h1><%= @match.location.name %> on <%= @match.date.to_s(:short) %> at <%= @match.time.to_s %></h1>
+<h1>Match summary</h1>
+Where: <%= @match.location.name %> - <%= @match.location.address %> 
+		(<%= link_to 'map', @match.location.google_link, :popup => true %>) <br/>
+Date:  <%= @match.date.to_s(:short) %> <br/>
+Time:  <%= @match.time.to_s %> <br/>
 
 <%= render :partial => 'players_list' %>
 
 <br/>
 
-<%= link_to 'Edit', edit_match_path(@match) %> |
-<%= link_to 'Back', matches_path %>
+<%= edit_link = if_authorized?(edit_match_path(@match)) { |opts| link_to( 'Edit', opts ) }
+    back_link = if_authorized?(matches_path) { |opts| link_to( 'Back', matches_path ) } 
+	if edit_link && back_link
+		"%s | %s" % [edit_link,back_link]
+	else
+		edit_link || back_link
+	end
+%>
+
