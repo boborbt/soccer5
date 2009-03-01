@@ -145,7 +145,12 @@ module RoleBasedAuthorization
   def if_authorized? opts, &block
     url_options = nil
     if opts.class == String
-      url_options = ActionController::Routing::Routes.recognize_path(opts)
+      path = opts
+      if path =~ %r{#{ActionController::AbstractRequest.relative_url_root}/(.*)}
+        path = $1
+      end
+      
+      url_options = ActionController::Routing::Routes.recognize_path(path)
     else
       url_options = opts
     end
