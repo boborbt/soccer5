@@ -7,6 +7,9 @@
   <title>Players: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= javascript_include_tag :defaults %>
+  <%= auto_discovery_link_tag(:rss, {:controller => "matches", :action => "index", :format => 'rss'}, {:title => "Matches RSS Feed"}) %>
+  <%= auto_discovery_link_tag(:atom, {:controller => "matches", :action => "index", :format => 'atom'}, {:title => "Matches Atom Feed"}) %>
+
 </head>
 <body>
 

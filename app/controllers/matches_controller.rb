@@ -1,15 +1,18 @@
 class MatchesController < ApplicationController
   # authorize current and show actions to anybody, even if not logged in
-  skip_before_filter :login_required, :only => [:current, :show]
+  skip_before_filter :login_required, :only => [:current, :show, :rss, :atom]
   
   # GET /matches
   # GET /matches.xml
+  # GET/matches.rss
+  # GET/maches.atom
   def index
     @matches = Match.find(:all, :order => 'date DESC')
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @matches }
+      format.atom 
     end
   end
 
@@ -17,6 +20,7 @@ class MatchesController < ApplicationController
     current_match = Match.find(:all, :order =>'abs(date -now()) ASC', :limit => 1)[0]
     redirect_to match_path(current_match)
   end
+   
 
   # GET /matches/1
   # GET /matches/1.xml
