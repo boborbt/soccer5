@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
   # authorize current and show actions to anybody, even if not logged in
-  skip_before_filter :login_required, :only => [:current, :show, :rss, :atom]
+  skip_before_filter :login_required, :only => [:current, :show, :index]
   
   # GET /matches
   # GET /matches.xml
