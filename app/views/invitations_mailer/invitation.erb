@@ -1,5 +1,5 @@
 Ciao!
-	sei invitato per la partita del <%= @invitation.match.date.to_s %> (ore <%= @invitation.match.time.to_s%>).
+	sei invitato alla partita del <%= @invitation.match.date.to_s %> (ore <%= @invitation.match.time.to_s%>).
 
 Per confermare la tua presenza (vedi anche la nota [1]) visita l'url:
 	<%= url_for :controller => :invitations, 

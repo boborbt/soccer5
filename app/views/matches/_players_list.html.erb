@@ -3,19 +3,19 @@
 		<h2>Invitations</h2>
 		<div class='status'>
 			<span class="header">Accepted</span>
-			<%= render :partial => 'player_list_generic', :locals => {:invitations => @match.accepted_invitations} %>
+			<%= render :partial => 'matches/player_list_generic', :locals => {:invitations => @match.accepted_invitations} %>
 		</div>
 		
 		<div class='status'>
 			<span class="header">Rejected</span>			
-			<%= render :partial => 'player_list_generic', 
+			<%= render :partial => 'matches/player_list_generic', 
 					   :locals => { :invitations => @match.rejected_invitations,
 									:quota_class => 'none' } %>
 		</div>
 		
 		<div class='status'>
 			<span class="header">Pending</span>
-			<%= render :partial => 'player_list_generic', 
+			<%= render :partial => 'matches/player_list_generic', 
 					   :locals => { :invitations => @match.unresponded_invitations,
 									:quota_class => 'none' } %>		
 		</div>

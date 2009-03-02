@@ -26,10 +26,15 @@
 	padding: 10px;
 }
 
-.player.inquota {
-	background-color: #CEFBC6;
+.player.accepted {
+	background-color: #CEFBC6;	
 }
 
-.player.overquota {
+.player.rejected {
 	background-color: #F7CCCC;
+}
+
+.player.accepted.overquota {
+	background-color: #E72619;
+	color: #FF0;
 }

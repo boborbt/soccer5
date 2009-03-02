@@ -26,6 +26,23 @@ class InvitationsController < ApplicationController
     flash[:notice] = 'Thanks anyway. Hope to see you next time.'
   end
   
+  def force_accept
+    @invitation = Invitation.find(params[:id])
+    @invitation.accept
+    @invitation.save!
+    @match = @invitation.match
+    render :partial => 'matches/players_list'
+  end
+
+  def force_reject
+    @invitation = Invitation.find(params[:id])
+    @invitation.reject
+    @invitation.save!
+    @match = @invitation.match
+    render :partial => 'matches/players_list'
+  end
+
+  
   def action_links
     @invitations=Invitation.find(:all)
   end
