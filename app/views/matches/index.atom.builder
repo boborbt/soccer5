@@ -11,7 +11,6 @@ atom_feed do |feed|
       
       entry.title(match.description)
       entry.content(content, :type => 'html')
-      entry.updated(last_changed_invitation.updated_at)
     end
   end
 end
