@@ -4,11 +4,14 @@ atom_feed do |feed|
 
   for match in @matches
     feed.entry(match) do |entry|
-      invitation = match.last_changed_invitation
+      last_changed_invitation = match.last_changed_invitation
+      invitations_status = match.invitations.map { |invitation| invitation.player.name+" "+invitation.status }.join('<br>')
+      content = invitations_status + '<br>' + '<strong>last changed invitation: </strong>' + 
+        last_changed_invitation.player.name+" "+last_changed_invitation.status
       
       entry.title(match.description)
-      entry.content(invitation.player.name+" "+invitation.status, :type => 'html')
-      entry.updated(invitation.updated_at)
+      entry.content(content, :type => 'html')
+      entry.updated(last_changed_invitation.updated_at)
     end
   end
 end
