@@ -20,22 +20,21 @@
 			<td><%= index+1 %>.</td>
 			<td><%= invitation.player.name %></td>
 			<td><%= invitation.status %> <%= if invitation.status == 'accepted' then 'on '+invitation.accepted_at.to_s(:long) else '' end %></td>
-			<td><%= link_to_remote( "Un-invite", {
+			<%= content_tag( :td, link_to_remote( "Un-invite", {
 									:url => url_for(:controller => :matches, 
 													:action => :uninvite_player, 
 													:id => @match, 
 													:player_id => invitation.player),
-								    :update => 'player_list'} ) if user_can_uninvite  %>				
-			</td>
-			<td><%= link_to_remote( "force accept", {
+								    :update => 'player_list'} ) ) if user_can_uninvite  %>				
+			<%= content_tag( :td, link_to_remote( "force accept", {
 									:url => url_for(:controller => :invitations,
 													:action => :force_accept,
 													:id => invitation),
-									:update => 'player_list' } ) if user_can_force_acceptance %></td>
-			<td><%= link_to_remote( "force reject", {
+									:update => 'player_list' } )) if user_can_force_acceptance %>
+			<%= content_tag( :td, link_to_remote( "force reject", {
 									:url => url_for(:controller => :invitations,
 													:action => :force_reject,
 													:id => invitation),
-													:update => 'player_list' } ) if user_can_force_rejection %></td>
+													:update => 'player_list' } )) if user_can_force_rejection %>
 	<% end %>
 </table>
