@@ -5,6 +5,10 @@ class Match < ActiveRecord::Base
   
   validates_presence_of :location
   
+  def description
+    "Match on %s at %s" % [self.date.to_s, self.location.name]
+  end
+  
   def datetime
     DateTime.new(date.year, date.month, date.day, time.hour, time.min)
   end
@@ -34,4 +38,9 @@ class Match < ActiveRecord::Base
   def max_players
     10
   end
+  
+  def last_changed_invitation
+    invitations.max { |inv1, inv2| inv1.updated_at <=> inv2.updated_at }
+  end
+  
 end
