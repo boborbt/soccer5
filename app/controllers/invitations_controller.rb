@@ -3,15 +3,19 @@ class InvitationsController < ApplicationController
   skip_before_filter :login_required, :only => [:accept_invitation, :reject_invitation]
   
   def accept_invitation
-    @invitation = Invitation.find_by_acceptance_code(params[:id])
-    if @invitation.nil?
-      flash[:notice] = 'The acceptance code you provided is invalid!'
-      return
-    end
+    begin
+      @invitation = Invitation.find_by_acceptance_code(params[:id])
+      if @invitation.nil?
+        flash[:notice] = 'The acceptance code you provided is invalid!'
+        return
+      end
     
-    @invitation.accept
-    @invitation.save!
-    flash[:notice] = 'Yuppie! See you on the playfield.'
+      @invitation.accept
+      @invitation.save!
+      flash[:notice] = 'Yuppie! See you on the playfield.'
+    rescue InvitationError
+      flash[:notice] = 'A problem occurred:' + $!.message
+    end
   end
 
   def reject_invitation

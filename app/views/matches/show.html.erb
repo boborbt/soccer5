@@ -7,13 +7,24 @@ Time:  <%= @match.time.to_s %> <br/>
 <%= render :partial => 'players_list' %>
 
 <br/>
+<%= 
+	autoinvite_link = 
+		if_authorized?(	:controller => :matches, 
+						:action => :autoinvite_players, 
+						:id => @match) { |opts| link_to_remote('Autoinvite', :url => url_for(opts), :update => 'player_list') }
+						 
+	solicit_link = 
+		if_authorized?(	:controller => :matches,
+						:action => :solicit_players, 
+						:id => @match) { |opts| link_to_remote('Solicit', :url => url_for(opts), :update => 'info' ) } 
+	
+	[autoinvite_link,solicit_link].compact.join(' | ') + '<br/>'
+%>
+
 
 <%= edit_link = if_authorized?(edit_match_path(@match)) { |opts| link_to( 'Edit', opts ) }
     back_link = if_authorized?(matches_path) { |opts| link_to( 'Back', matches_path ) } 
-	if edit_link && back_link
-		"%s | %s" % [edit_link,back_link]
-	else
-		edit_link || back_link
-	end
+
+	[edit_link, back_link].compact.join(' | ') + '<br/>'
 %>
 

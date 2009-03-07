@@ -3,28 +3,29 @@
 		<h2>Invitations</h2>
 		<div class='status'>
 			<span class="header">Accepted</span>
-			<%= render :partial => 'matches/player_list_generic', :locals => {:invitations => @match.accepted_invitations} %>
+			<%= render :partial => 'matches/players_list_generic', :locals => {:invitations => @match.accepted_invitations} %>
 		</div>
 		
 		<div class='status'>
 			<span class="header">Rejected</span>			
-			<%= render :partial => 'matches/player_list_generic', 
+			<%= render :partial => 'matches/players_list_generic', 
 					   :locals => { :invitations => @match.rejected_invitations,
 									:quota_class => 'none' } %>
 		</div>
 		
 		<div class='status'>
 			<span class="header">Pending</span>
-			<%= render :partial => 'matches/player_list_generic', 
+			<%= render :partial => 'matches/players_list_generic', 
 					   :locals => { :invitations => @match.unresponded_invitations,
 									:quota_class => 'none' } %>		
 		</div>
 	</div>
 
-		<% if_authorized?(:controller => :matches, 
-						   :action => :invite_player, 
-						   :id => @match) do |opts| %>
-			<div id="uninvited players">		
+	<% if_authorized?(:controller => :matches, 
+					   :action => :invite_player, 
+					   :id => @match) do |opts| %>
+					
+		<div id="uninvited players">		
 			<h2>Uninvited players</h2>
 			<% @match.uninvited_players.each do |player| %>
 				<% div_for player do %>
@@ -32,6 +33,10 @@
 					<%= link_to_remote "Invite", :url => url_for(opts.merge(:player_id => player)), :update => 'player_list' %>
 				<% end %>
 			<% end %>
-		<% end %>
-	</div>
+		</div>
+
+	<% end %>
 </div>
+
+<div id="info"></div>
+

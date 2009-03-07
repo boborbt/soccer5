@@ -13,9 +13,17 @@ class Match < ActiveRecord::Base
     DateTime.new(date.year, date.month, date.day, time.hour, time.min)
   end
   
-  def autoinvite_players
+  def autoinvite_players!
     Player.find_all_by_invite_always(true).each do |player|
       self.players << player
+    end
+    
+    self.save!
+  end
+  
+  def solicit_players
+    self.invitations.each do |invitation|
+      invitation.solicit if invitation.status == Invitation::STATUSES[:pending]
     end
   end
   

@@ -1,9 +1,8 @@
 class CreateRoles < ActiveRecord::Migration
   def self.up
     create_table :roles do |t|
-
       t.timestamps
-    end
+    end    
   end
 
   def self.down

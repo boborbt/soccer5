@@ -112,4 +112,18 @@ class MatchesController < ApplicationController
     @match.players.delete( @player )
     render :partial => 'players_list'
   end
+  
+  
+  def autoinvite_players
+    @match = Match.find(params[:id])
+    @match.autoinvite_players!
+    render :partial => 'players_list'
+  end
+  
+  def solicit_players
+    @match = Match.find(params[:id])
+    @match.solicit_players
+    render :text => 'Mails have been sent!'
+  end
+  
 end

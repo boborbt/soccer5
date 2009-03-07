@@ -7,4 +7,13 @@ class InvitationsMailer < ActionMailer::Base
     
     body       :invitation => invitation
   end
+  
+  def solicitation(invitation, sent_at = Time.now)
+    subject    "Reminder convocazione (Partita del #{invitation.match.date.to_s} ore #{invitation.match.time.to_s})"
+    recipients invitation.player.email
+    from       'boborbt@gmail.com'
+    sent_on    sent_at
+    
+    body       :invitation => invitation    
+  end
 end

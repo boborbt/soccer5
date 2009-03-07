@@ -1,0 +1,24 @@
+Ciao!
+	ti ricordo che ancora non hai risposto alla richiesta di adesione alla
+partita del <%= @invitation.match.date.to_s %> (ore <%= @invitation.match.time.to_s%>).
+
+Per confermare la tua presenza visita l'url:
+	<%= url_for :controller => :invitations, 
+				:action => :accept_invitation, 
+				:id => @invitation.acceptance_code,
+				:only_path => false,
+				:protocol => 'https' %>
+
+per rifiutare l'invito e evitare ulteriori mail relative a questa partita 
+visita l'url:
+	<%= url_for :controller => :invitations, 
+				:action => :reject_invitation, 
+				:id => @invitation.refusal_code,
+				:only_path => false,
+				:protocol => 'https' %>
+
+Per consultare la situazione delle adesioni visita l'url:
+	<%= current_match_url({:protocol => 'https'}) %>
+	
+Ciao,
+	Roberto
