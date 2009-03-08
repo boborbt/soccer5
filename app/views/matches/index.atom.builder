@@ -14,7 +14,7 @@ atom_feed do |feed|
     feed.entry(match, {:id => match.id.to_s + match_update.to_s, :updated => match_update}) do |entry|
       last_changed_invitation = match.last_changed_invitation
       invitations_status = match.invitations.sort {|i1,i2| i1.status <=> i2.status }.map do |invitation| 
-        content_type = :p
+        content_type = :span
         content_type = :strong if invitation.status == Invitation::STATUSES[:accepted]
         content_tag(content_type, invitation.player.name+" "+invitation.status) 
       end.join('<br>')
