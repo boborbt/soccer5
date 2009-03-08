@@ -1,0 +1,11 @@
+<h1>Users</h1>
+<table>
+	<tr><th>login</th><th>role</th><th>action</th></tr>
+	<% for user in @users do %>
+	<tr>
+		<td><%=h user.login %></td>
+		<td><%=h user.role.name %></td>
+		<td><%= link_to 'edit', edit_user_path(user) %>
+	</tr>	
+	<% end %>
+</table>

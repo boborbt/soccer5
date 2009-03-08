@@ -1,0 +1,8 @@
+<h1>Editing user (id:<%= @user.id %>)</h1>
+<% form_for @user do |f| %>
+<%= f.label :login %>: <%= f.text_field :login %><br/>
+<%= f.label :email %>: <%= f.text_field :email %><br/>
+<%= f.label :role %>:  <%= collection_select(:user, :role, Role.find(:all), :id, :name, {:prompt => true})  %><br>
+<br>
+<%= f.submit %>	
+<% end %>
