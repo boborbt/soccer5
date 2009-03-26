@@ -17,8 +17,7 @@ class MatchesController < ApplicationController
   end
 
   def current
-    current_match = Match.find(:all, :order =>'abs(date -now()) ASC', :limit => 1)[0]
-    redirect_to match_path(current_match)
+    redirect_to match_path(Match.current_match)
   end
    
 
@@ -36,8 +35,12 @@ class MatchesController < ApplicationController
   # GET /matches/new
   # GET /matches/new.xml
   def new
+    current_match = Match.current_match
     @match = Match.new
-
+    @match.date = Match.current_match.date + 1.week
+    @match.time = Match.current_match.time
+    @match.location = Match.current_match.location
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @match }

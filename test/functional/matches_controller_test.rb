@@ -3,6 +3,10 @@ require 'test_helper'
 class MatchesControllerTest < ActionController::TestCase
   fixtures :locations, :matches
   
+  def setup
+    login_as(:admin)
+  end
+  
   test "should get index" do
     get :index
     assert_response :success
@@ -17,6 +21,21 @@ class MatchesControllerTest < ActionController::TestCase
   test "should get new" do
     get :new
     assert_response :success
+  end
+  
+  test "new matches shoudl be 1 week after current match" do
+    get :new
+    assert_equal assigns(:match).date, Match.current_match.date + 1.week
+  end
+  
+  test "new matchees should be at the same time as the current match" do
+    get :new
+    assert_equal assigns(:match).time, Match.current_match.time
+  end
+  
+  test "new matches should be in the same place of the current match" do
+    get :new
+    assert_equal assigns(:match).location, Match.current_match.location
   end
 
   test "should create match" do

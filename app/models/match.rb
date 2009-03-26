@@ -5,6 +5,10 @@ class Match < ActiveRecord::Base
   
   validates_presence_of :location
   
+  def Match.current_match
+    Match.find(:all, :order =>'abs(date -now()) ASC', :limit => 1)[0]
+  end
+  
   def description
     "Match on %s at %s" % [self.date.to_s, self.location.name]
   end

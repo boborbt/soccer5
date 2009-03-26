@@ -36,7 +36,7 @@ class InvitationTest < ActiveSupport::TestCase
       match.stubs(:datetime).returns(DateTime.now - 1)
       @invitation.stubs(:match).returns( match )
 
-      assert_raises RuntimeError do
+      assert_raises InvitationError do
         @invitation.accept
       end
     end
