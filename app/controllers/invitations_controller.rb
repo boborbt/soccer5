@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController 
   # authorize actions to anybody, even if not logged in  
-  skip_before_filter :login_required, :only => [:accept_invitation, :reject_invitation]
+  skip_before_filter :login_required, :only => [:accept_invitation, :reject_invitation, :set_additional_players]
   
   def accept_invitation
     begin
@@ -15,7 +15,41 @@ class InvitationsController < ApplicationController
       flash[:notice] = 'Yuppie! See you on the playfield.'
     rescue InvitationError
       flash[:notice] = 'A problem occurred:' + $!.message
+      logger.info(flash[:notice])
     end
+  end
+  
+  
+  def set_additional_players
+    begin
+      @invitation = nil
+      if !params[:acceptance_code].nil?
+        @invitation = Invitation.find_by_acceptance_code(params[:acceptance_code])
+      elsif !params[:refusal_code].nil?
+        @invitation = Invitation.find_by_refusal_code(params[:refusal_code])        
+      end
+      
+      raise InvitationError.new("No acceptance nor refusal code found!") if @invitation.nil?
+      
+      if @invitation.nil?
+        flash[:notice] = 'The acceptance code you provided is invalid!'
+        return
+      end
+    
+      num_additional_players = 0
+    
+      unless params[:num_additional_players].nil?
+        num_additional_players = params[:num_additional_players].to_i
+      end
+      
+      @invitation.num_additional_players = num_additional_players
+      @invitation.save!
+      redirect_to current_match_path
+    rescue InvitationError
+      redirect_to current_match_path
+      flash[:notice] = 'A problem occurred:' + $!.message
+      logger.info(flash[:notice])
+    end    
   end
 
   def reject_invitation

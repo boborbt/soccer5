@@ -13,6 +13,12 @@ class Match < ActiveRecord::Base
     "Match on %s at %s" % [self.date.to_s, self.location.name]
   end
   
+  def number_of_coming_players
+    self.invitations.inject(0) do |s,i|
+      s + i.num_additional_players + ( i.status == Invitation::STATUSES[:accepted] ? 1 : 0 )
+    end
+  end
+  
   def datetime
     DateTime.new(date.year, date.month, date.day, time.hour, time.min)
   end

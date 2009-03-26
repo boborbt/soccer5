@@ -1,7 +1,3 @@
-class InvitationError < RuntimeError
-  
-end
-
 class Invitation < ActiveRecord::Base
   belongs_to :match
   belongs_to :player
@@ -35,7 +31,7 @@ class Invitation < ActiveRecord::Base
   end
   
   def reject
-    raise "Il match sì è già svolto. Non è più possibile rifiutare l'invito" unless match.datetime.future?    
+    raise "The match date is in the past! It is too late to reject the invitation" unless match.datetime.future?    
     
     self.status = STATUSES[:rejected]
     # stores the time of rejection, but only if this datum did not already exist

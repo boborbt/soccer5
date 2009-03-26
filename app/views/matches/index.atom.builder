@@ -29,7 +29,7 @@ atom_feed do |feed|
       end
       
       content += '<br>' + content_tag(:p, 
-                  '# players that accepted:'+match.invitations.inject(0) {|s,i| s+ (i.status == Invitation::STATUSES[:accepted] ? 1 : 0)}.to_s )
+                  '# players that accepted:'+match.number_of_coming_players.to_s )
       content += '<br>' + last_change
       
       entry.title(match.description)

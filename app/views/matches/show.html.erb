@@ -3,6 +3,8 @@ Where: <%= @match.location.name %> - <%= @match.location.address %>
 		(<%= link_to 'map', @match.location.google_link, :popup => true %>) <br/>
 Date:  <%= @match.date.to_s(:short) %> <br/>
 Time:  <%= @match.time.to_s %> <br/>
+Current number of coming players: <%= @match.number_of_coming_players %>
+
 
 <%= render :partial => 'players_list' %>
 

@@ -1,0 +1,3 @@
+class InvitationError < RuntimeError
+  
+end

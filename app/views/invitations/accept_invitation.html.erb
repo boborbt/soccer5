@@ -1,3 +1,12 @@
 <% unless @invitation.nil? %>
-	<%= link_to 'Go to current match', current_match_path %>
+	Please specify how many additional players you are bringing with you: <br>
+		<% form_tag :controller => 'invitations', 
+				 	:action => 'set_additional_players', 
+					:acceptance_code => @invitation.acceptance_code do -%> 
+			<%= text_field_tag( :num_additional_players, @invitation.num_additional_players ) %>
+			<%= submit_tag "submit" %>
+		<% end %>		
+	<br/>
+	or <br>
+		<%= link_to 'Go to current match', current_match_path %>
 <% end %>

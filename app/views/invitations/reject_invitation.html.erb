@@ -1,3 +1,14 @@
 <% unless @invitation.nil? %>
+	Please specify the number of your friends (not in the mailing list) are coming: <br>
+		<% form_tag :controller => 'invitations', 
+				 	:action => 'set_additional_players', 
+					:refusal_code => @invitation.refusal_code do -%> 
+			<%= text_field_tag( :num_additional_players, @invitation.num_additional_players ) %>
+			<%= submit_tag "submit" %>
+		<% end %>		
+	<br/>
+	
+	or <br>
+
 	<%= link_to 'Go to current match', current_match_path %>
 <% end %>
