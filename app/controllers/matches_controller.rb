@@ -129,4 +129,11 @@ class MatchesController < ApplicationController
     render :text => 'Mails have been sent!'
   end
   
+  
+  def close_convocations
+    @match = Match.find(params[:id])
+    @match.close_convocations
+    render :text => 'Mails have been sent!'
+  end
+  
 end

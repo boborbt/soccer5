@@ -1,0 +1,21 @@
+Cari tutti,
+	i convocati per questa settimana sono i seguenti:
+	
+<% index = 0 -%>
+<% @accepted_invitations.each do |invitation| -%>
+<% index += 1 -%>
+<%= index %> - <%= invitation.player.name %>
+<% end -%>
+<% @invitations_with_additional_players.each do |invitation| -%>
+<% invitation.num_additional_players.times do -%>
+<% index += 1 -%>
+<%= index %> - Portato da <%= invitation.player.name %>
+<% end -%>
+<% end -%>
+
+Come sempre, maggiori informazioni le trovate all'URL:
+	<%= current_match_url({:protocol => 'https'}) %>
+
+
+Ciao a tutti,
+	Roberto

@@ -5,6 +5,10 @@ class Match < ActiveRecord::Base
   
   validates_presence_of :location
   
+  def invitations_with_additional_players
+    self.invitations.find_all { |i| i.num_additional_players > 0 }
+  end
+  
   def Match.current_match
     Match.find(:all, :order =>'abs(date -now()) ASC', :limit => 1)[0]
   end
@@ -34,6 +38,12 @@ class Match < ActiveRecord::Base
   def solicit_players
     self.invitations.each do |invitation|
       invitation.solicit if invitation.status == Invitation::STATUSES[:pending]
+    end
+  end
+  
+  def close_convocations
+    self.invitations.each do |invitation|
+      invitation.close_convocations if [Invitation::STATUSES[:pending], Invitation::STATUSES[:accepted]].include?(invitation.status)
     end
   end
   

@@ -19,8 +19,14 @@ Current number of coming players: <%= @match.number_of_coming_players %>
 		if_authorized?(	:controller => :matches,
 						:action => :solicit_players, 
 						:id => @match) { |opts| link_to_remote('Solicit', :url => url_for(opts), :update => 'info' ) } 
+						
+	close_convocations_link = 
+		if_authorized?(	:controller => :matches,
+						:action => :close_convocations, 
+						:id => @match) { |opts| link_to_remote('Close convocations', :url => url_for(opts), :update => 'info' ) } 
 	
-	[autoinvite_link,solicit_link].compact.join(' | ') + '<br/>'
+	
+	[autoinvite_link,solicit_link,close_convocations_link].compact.join(' | ') + '<br/>'
 %>
 
 

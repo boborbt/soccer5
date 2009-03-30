@@ -3,7 +3,7 @@
 		<h2>Invitations</h2>
 		<div class='status'>
 			<span class="header">Accepted</span>
-			<% ap_invitations = @match.invitations.find_all { |invitation| invitation.num_additional_players > 0 }%>
+			<% ap_invitations = @match.invitations_with_additional_players %>
 			<%= render :partial => 'matches/players_list_generic', :locals => {:invitations => @match.accepted_invitations,
 																			   :additional_players_invitations => ap_invitations 
 																			   } %>			

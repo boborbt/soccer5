@@ -46,5 +46,11 @@ class Invitation < ActiveRecord::Base
     InvitationsMailer.deliver_solicitation(self)
     self.number_of_sent_mails += 1
     self.save!
-  end  
+  end
+  
+  def close_convocations
+    InvitationsMailer.deliver_close_convocations(self)
+    self.number_of_sent_mails += 1
+    self.save!
+  end
 end

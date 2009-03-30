@@ -1,7 +1,7 @@
 <% invitation.num_additional_players.times do %>		
 	<%
 		index += 1
-		quota_class ||= (index < match.max_players && 'inquota') || 'overquota'
+		quota_class ||= (index <= match.max_players && 'inquota') || 'overquota'
 	%>
 	
 	<tr class="player accepted <%= quota_class %>">
