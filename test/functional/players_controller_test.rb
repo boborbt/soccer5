@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class PlayersControllerTest < ActionController::TestCase
+  def setup
+    login_as(:admin)
+  end
+  
   test "should get index" do
     get :index
     assert_response :success
@@ -21,23 +25,23 @@ class PlayersControllerTest < ActionController::TestCase
   end
 
   test "should show player" do
-    get :show, :id => players(:one).id
+    get :show, :id => players(:player).id
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => players(:one).id
+    get :edit, :id => players(:player).id
     assert_response :success
   end
 
   test "should update player" do
-    put :update, :id => players(:one).id, :player => { }
+    put :update, :id => players(:player).id, :player => { }
     assert_redirected_to player_path(assigns(:player))
   end
 
   test "should destroy player" do
     assert_difference('Player.count', -1) do
-      delete :destroy, :id => players(:one).id
+      delete :destroy, :id => players(:player).id
     end
 
     assert_redirected_to players_path
