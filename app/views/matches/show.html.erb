@@ -13,22 +13,31 @@ Current number of coming players: <%= @match.number_of_coming_players %>
 	autoinvite_link = 
 		if_authorized?(	:controller => :matches, 
 						:action => :autoinvite_players, 
-						:id => @match) { |opts| link_to_remote('Autoinvite', :url => url_for(opts), :update => 'player_list') }
-						 
+						:id => @match) { |opts| link_to_remote('Autoinvite',:url => url_for(opts), 
+																			:update => 'player_list',
+						 													:loading => visual_effect(:appear, 'spinner', {:duration => 0.1}),
+																			:loaded => visual_effect(:fade, 'spinner', {:duration => 0.1}) )} 
 	solicit_link = 
 		if_authorized?(	:controller => :matches,
 						:action => :solicit_players, 
-						:id => @match) { |opts| link_to_remote('Solicit', :url => url_for(opts), :update => 'info' ) } 
+						:id => @match) { |opts| link_to_remote('Solicit', 	:url => url_for(opts), 
+																			:update => 'info',
+						 													:loading => visual_effect(:appear, 'spinner', {:duration => 0.1}),
+																			:loaded => visual_effect(:fade, 'spinner', {:duration => 0.1}) )}
 						
 	close_convocations_link = 
 		if_authorized?(	:controller => :matches,
 						:action => :close_convocations, 
-						:id => @match) { |opts| link_to_remote('Close convocations', :url => url_for(opts), :update => 'info' ) } 
+						:id => @match) { |opts| link_to_remote('Close convocations', 	:url => url_for(opts), 
+																						:update => 'info',
+																						:loading => visual_effect(:appear, 'spinner', {:duration => 0.1}),
+																						:loaded => visual_effect(:fade, 'spinner', {:duration => 0.1}) )}
 	
 	
-	[autoinvite_link,solicit_link,close_convocations_link].compact.join(' | ') + '<br/>'
+	[autoinvite_link,solicit_link,close_convocations_link].compact.join(' | ')
 %>
 
+<span id='spinner' style='display:none'><%= image_tag 'spinner.gif' %></span><br/>
 
 <%= edit_link = if_authorized?(edit_match_path(@match)) { |opts| link_to( 'Edit', opts ) }
     back_link = if_authorized?(matches_path) { |opts| link_to( 'Back', matches_path ) } 
