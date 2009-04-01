@@ -17,7 +17,13 @@ class MatchesController < ApplicationController
   end
 
   def current
-    redirect_to match_path(Match.current_match)
+    current = Match.current_match
+    if !current.nil?
+      redirect_to match_path(Match.current_match)
+    else
+      flash[:notice] = 'No open matches found!'
+      redirect_to :action => :index
+    end
   end
    
 
@@ -125,15 +131,21 @@ class MatchesController < ApplicationController
   
   def solicit_players
     @match = Match.find(params[:id])
-    @match.solicit_players
+    @match.solicit_players!
     render :text => 'Mails have been sent!'
   end
   
   
   def close_convocations
     @match = Match.find(params[:id])
-    @match.close_convocations
-    render :text => 'Mails have been sent!'
+    @match.close_convocations!
+    render :action => 'show', :id => @match
+  end
+  
+  def reopen_convocations
+    @match = Match.find(params[:id])
+    @match.reopen_convocations!
+    render :action => 'show', :id => @match
   end
   
 end

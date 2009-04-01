@@ -3,7 +3,8 @@ Where: <%= @match.location.name %> - <%= @match.location.address %>
 		(<%= link_to 'map', @match.location.google_link, :popup => true %>) <br/>
 Date:  <%= @match.date.to_s(:short) %> <br/>
 Time:  <%= @match.time.to_s %> <br/>
-Current number of coming players: <%= @match.number_of_coming_players %>
+Current number of coming players: <%= @match.number_of_coming_players %><br/>
+Status: <%= @match.status %>
 
 
 <%= render :partial => 'players_list' %>
@@ -28,13 +29,15 @@ Current number of coming players: <%= @match.number_of_coming_players %>
 	close_convocations_link = 
 		if_authorized?(	:controller => :matches,
 						:action => :close_convocations, 
-						:id => @match) { |opts| link_to_remote('Close convocations', 	:url => url_for(opts), 
-																						:update => 'info',
-																						:loading => visual_effect(:appear, 'spinner', {:duration => 0.1}),
-																						:loaded => visual_effect(:fade, 'spinner', {:duration => 0.1}) )}
+						:id => @match) { |opts| link_to('Close convocations', opts) } 
+						
+	reopen_convocations_link = 
+		if_authorized?( :controller => :matches,
+						:action => :reopen_convocations,
+						:id => @match) { |opts| link_to('Reopen convocations', opts) } 
 	
 	
-	[autoinvite_link,solicit_link,close_convocations_link].compact.join(' | ')
+	[autoinvite_link,solicit_link,close_convocations_link,reopen_convocations_link].compact.join(' | ')
 %>
 
 <span id='spinner' style='display:none'><%= image_tag 'spinner.gif' %></span><br/>

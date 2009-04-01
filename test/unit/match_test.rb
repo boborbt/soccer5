@@ -23,5 +23,53 @@ class MatchTest < ActiveSupport::TestCase
     end    
   end
   
+  test "should close a match when closing convocations" do
+    match = matches(:match)
+    assert_equal true, match.is_open?
+    
+    assert_nothing_raised do
+      match.close_convocations!
+    end
+    
+    match.reload
+    assert_equal false, match.is_open?
+  end
+  
+  test "should open a match without errors" do 
+    match = matches(:match)
+    match.status = Match::STATUSES[:closed]
+    match.save!
+    match.reload
+    
+    assert_equal false, match.is_open?
+    
+    match.reopen_convocations!
+    match.reload
+    assert_equal true, match.is_open?    
+  end
+  
+  test "should find all open matches" do
+    assert_equal 2, Match.all_open_matches.size
+    
+    Match.all_open_matches.each do |match|
+      assert_equal true, match.is_open?
+    end
+  end
 
+  test "should find all closed matches" do
+    assert_equal 1, Match.all_closed_matches.size
+    Match.all_closed_matches.each do |match|
+      assert_equal true, match.is_closed?
+    end    
+  end
+
+  test "should find all waiting matches" do
+    assert_equal 1, Match.all_waiting_matches.size
+    Match.all_waiting_matches.each do |match|
+      assert_equal true, match.is_waiting?
+    end    
+    
+  end
+  
+  
 end

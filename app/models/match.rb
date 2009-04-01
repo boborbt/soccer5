@@ -5,12 +5,37 @@ class Match < ActiveRecord::Base
   
   validates_presence_of :location
   
+  STATUSES = { 
+                :open => 'open', # match just opened, no invitation sent
+                :waiting => 'waiting', # match open, invitations sent, waiting for replies
+                :solicit1 => 'solicit1', # match open, invitations sent, 1 solicitation mail sent
+                :solicit2 => 'solicit2', # match open, invitations sent, 2 solicitation mails sent
+                :closed => 'closed' # match closed, invitations should not be accepted any more (they will, but it should not be the norm)
+             }
+  
+    
   def invitations_with_additional_players
     self.invitations.find_all { |i| i.num_additional_players > 0 }
   end
   
   def Match.current_match
-    Match.find(:all, :order =>'abs(date -now()) ASC', :limit => 1)[0]
+    Match.all_open_matches[0]
+  end
+  
+  def Match.all_open_matches
+    Match.find(:all, :conditions => %Q{status='#{STATUSES[:open]}'}, :order => 'abs(date-now()) ASC')
+  end
+  
+  def Match.all_closed_matches
+    Match.find(:all, :conditions => %Q{status='#{STATUSES[:closed]}'}, :order =>'abs(date -now()) ASC')
+  end
+  
+  def Match.all_waiting_matches
+    Match.find(:all, :conditions => ['status=:waiting OR status=:solicit1 OR status=:solicit2',
+                                      {:waiting => STATUSES[:waiting], 
+                                       :solicit1 => STATUSES[:solicit1], 
+                                       :solicit2 => STATUSES[:solicit2]}],
+                     :order => 'abs(date-now()) ASC')
   end
   
   def description
@@ -32,19 +57,37 @@ class Match < ActiveRecord::Base
       self.players << player
     end
     
+    self.status = Match::STATUSES[:waiting]
+    
     self.save!
   end
   
-  def solicit_players
+  def solicit_players!
     self.invitations.each do |invitation|
       invitation.solicit if invitation.status == Invitation::STATUSES[:pending]
     end
+    
+    self.status = case self.status
+                  when STATUSES[:waiting] then STATUSES[:solicit1]
+                  when STATUSES[:solicit1] then STATUSES[:solicit2]
+                  when STATUSES[:solicit2] then STATUSES[:solicit2]
+                  when STATUSES[:closed] then STATUSES[:closed]
+                  end
+    self.save!
   end
   
-  def close_convocations
+  def close_convocations!
+    self.status = Match::STATUSES[:closed]
+    self.save!
+    
     self.invitations.each do |invitation|
       invitation.close_convocations if [Invitation::STATUSES[:pending], Invitation::STATUSES[:accepted]].include?(invitation.status)
     end
+  end
+  
+  def reopen_convocations!
+    self.status = Match::STATUSES[:open]
+    self.save!
   end
   
   def accepted_invitations
@@ -70,5 +113,15 @@ class Match < ActiveRecord::Base
   def last_changed_invitation
     invitations.max { |inv1, inv2| inv1.updated_at <=> inv2.updated_at }
   end
-  
+
+  # handles is_xxx? methods (meant to return status values)
+  def method_missing(method_id, *arguments)    
+    match = method_id.to_s.match(/is_(.*)\?/)
+    if match && STATUSES.keys.map { |k| k.to_s }.include?(match[1])
+        return self.status == STATUSES[match[1].to_sym]
+    end
+    
+    super
+  end
+    
 end
