@@ -25,6 +25,7 @@ desc 'Update link to database configuration file'
 task :after_update_code do
   run "ln -s #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml"
   run "ln -s #{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"
+  run "chmod u+x #{release_path}/script/hourly.sh"
 end
 
 
