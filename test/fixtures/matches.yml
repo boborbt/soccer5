@@ -1,26 +1,26 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 match:
-  date: 2009-02-10
-  time: 2009-02-10 19:00:00
+  date: 2009-02-11
+  time: 2009-02-11 19:00:00
   status: open
   location: sporting
   
 match2:
-  date: 2009-03-10
-  time: 2009-03-10 19:00:00
+  date: 2009-03-12
+  time: 2009-03-12 19:00:00
   status: open
   location: sporting
 
 match3:
- date: 2009-03-10
- time: 2009-03-10 19:00:00
+ date: 2009-03-13
+ time: 2009-03-13 19:00:00
  status: waiting
  location: sporting
 
 match4:
- date: 2009-03-10
- time: 2009-03-10 19:00:00
+ date: 2009-03-14
+ time: 2009-03-14 19:00:00
  status: closed
  location: sporting
    

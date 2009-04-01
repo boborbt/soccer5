@@ -19,7 +19,11 @@ class Match < ActiveRecord::Base
   end
   
   def Match.current_match
-    Match.all_open_matches[0]
+    Match.all_matches_not_closed[0]
+  end
+  
+  def Match.all_matches_not_closed
+    Match.find(:all, :conditions => %Q{status<>'#{STATUSES[:closed]}'}, :order => 'abs(date-now()) ASC')
   end
   
   def Match.all_open_matches

@@ -14,6 +14,10 @@ class MatchesControllerTest < ActionController::TestCase
   end
   
   test "/ should redirect to show current match" do
+    match = matches(:match)
+    match.date = Date.today
+    match.save!
+    
     get :current
     assert_redirected_to match_path(matches(:match))
   end
