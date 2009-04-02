@@ -13,25 +13,24 @@ class Match < ActiveRecord::Base
                 :closed => 'closed' # match closed, invitations should not be accepted any more (they will, but it should not be the norm)
              }
   
-    
-  def invitations_with_additional_players
-    self.invitations.find_all { |i| i.num_additional_players > 0 }
-  end
-  
+  # --------------------------------------------------------------------------------
+  # Retrieving matches              
+  # --------------------------------------------------------------------------------
+
   def Match.current_match
     Match.all_matches_not_closed[0]
   end
-  
-  def Match.all_matches_not_closed
-    Match.find(:all, :conditions => %Q{status<>'#{STATUSES[:closed]}'}, :order => 'abs(date-now()) ASC')
-  end
-  
+    
   def Match.all_open_matches
     Match.find(:all, :conditions => %Q{status='#{STATUSES[:open]}'}, :order => 'abs(date-now()) ASC')
   end
   
   def Match.all_closed_matches
     Match.find(:all, :conditions => %Q{status='#{STATUSES[:closed]}'}, :order =>'abs(date -now()) ASC')
+  end
+  
+  def Match.all_matches_not_closed
+    Match.find(:all, :conditions => %Q{status<>'#{STATUSES[:closed]}'}, :order => 'abs(date-now()) ASC')
   end
   
   def Match.all_waiting_matches
@@ -42,9 +41,27 @@ class Match < ActiveRecord::Base
                      :order => 'abs(date-now()) ASC')
   end
   
+  # --------------------------------------------------------------------------------
+  # Querying 
+  # --------------------------------------------------------------------------------
+  
   def description
     "Match on %s at %s" % [self.date.to_s, self.location.name]
   end
+  
+  
+   def max_players
+     10
+   end
+
+   def last_changed_invitation
+     invitations.max { |inv1, inv2| inv1.updated_at <=> inv2.updated_at }
+   end  
+    
+  def invitations_with_additional_players
+    self.invitations.find_all { |i| i.num_additional_players > 0 }
+  end
+  
   
   def number_of_coming_players
     self.invitations.inject(0) do |s,i|
@@ -55,6 +72,37 @@ class Match < ActiveRecord::Base
   def datetime
     DateTime.new(date.year, date.month, date.day, time.hour, time.min)
   end
+  
+  def accepted_invitations
+    invitations.find_all_by_status('accepted', :order => 'accepted_at ASC')
+  end
+  
+  def rejected_invitations
+    invitations.find_all_by_status('rejected', :order => 'rejected_at ASC')
+  end
+  
+  def unresponded_invitations 
+    invitations.find_all_by_status(nil)
+  end
+  
+  def uninvited_players 
+    Player.find(:all) - players
+  end
+  
+  # handles is_xxx? methods (meant to return status values: e.g., is_waiting?, is_closed?, etc.)
+  def method_missing(method_id, *arguments)    
+    match = method_id.to_s.match(/is_(.*)\?/)
+    if match && STATUSES.keys.map { |k| k.to_s }.include?(match[1])
+        return self.status == STATUSES[match[1].to_sym]
+    end
+    
+    super
+  end
+  
+  
+  # --------------------------------------------------------------------------------
+  # Actions 
+  # --------------------------------------------------------------------------------
   
   def autoinvite_players!
     Player.find_all_by_invite_always(true).each do |player|
@@ -93,39 +141,5 @@ class Match < ActiveRecord::Base
     self.status = Match::STATUSES[:open]
     self.save!
   end
-  
-  def accepted_invitations
-    invitations.find_all_by_status('accepted', :order => 'accepted_at ASC')
-  end
-  
-  def rejected_invitations
-    invitations.find_all_by_status('rejected', :order => 'rejected_at ASC')
-  end
-  
-  def unresponded_invitations 
-    invitations.find_all_by_status(nil)
-  end
-  
-  def uninvited_players 
-    Player.find(:all) - players
-  end
-  
-  def max_players
-    10
-  end
-  
-  def last_changed_invitation
-    invitations.max { |inv1, inv2| inv1.updated_at <=> inv2.updated_at }
-  end
-
-  # handles is_xxx? methods (meant to return status values)
-  def method_missing(method_id, *arguments)    
-    match = method_id.to_s.match(/is_(.*)\?/)
-    if match && STATUSES.keys.map { |k| k.to_s }.include?(match[1])
-        return self.status == STATUSES[match[1].to_sym]
-    end
-    
-    super
-  end
-    
+      
 end
