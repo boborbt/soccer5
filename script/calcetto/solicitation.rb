@@ -5,11 +5,13 @@ logger.info('SOLICITATION-SCRIPT:: Analyzing matches (possibly) needing to be so
 Match.all_waiting_matches.each do |match|
   if ((match.date - Date.today).days < 5.days) && match.status==Match::STATUSES[:waiting]    
     logger.info("SOLICITATION-SCRIPT:: Sending first solicitation to match #{match.description}")
-    match.solicit_players!
+    num_solicited_players = match.solicit_players!
+    puts "Sent solicitations to #{num_solicited_players} players"
   end
   
   if ((match.date - Date.today).days < 3.days) && match.status==Match::STATUSES[:solicit1]
     logger.info("SOLICITATION-SCRIPT:: Sending second solicitation to match #{match.description}")
-    match.solicit_players!
+    num_solicited_players = match.solicit_players!.size
+    puts "Sent solicitations to #{num_solicited_players} players"
   end
 end

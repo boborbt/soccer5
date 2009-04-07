@@ -12,6 +12,19 @@ class Match < ActiveRecord::Base
                 :solicit2 => 'solicit2', # match open, invitations sent, 2 solicitation mails sent
                 :closed => 'closed' # match closed, invitations should not be accepted any more (they will, but it should not be the norm)
              }
+             
+  # --------------------------------------------------------------------------------
+  # Creating matches 
+  # --------------------------------------------------------------------------------
+  def Match.clone_match_from_last_one
+    current_match = Match.current_match
+    match = Match.new
+    match.date = Match.current_match.date + 1.week
+    match.time = Match.current_match.time
+    match.location = Match.current_match.location
+    
+    match
+  end
   
   # --------------------------------------------------------------------------------
   # Retrieving matches              
@@ -105,18 +118,25 @@ class Match < ActiveRecord::Base
   # --------------------------------------------------------------------------------
   
   def autoinvite_players!
-    Player.find_all_by_invite_always(true).each do |player|
-      self.players << player
+    players = Player.find_all_by_invite_always(true)
+    players.each do |player|
+      self.players << player      
     end
     
-    self.status = Match::STATUSES[:waiting]
-    
+    self.status = Match::STATUSES[:waiting]    
     self.save!
+    
+    players
   end
   
   def solicit_players!
+    solicited_players = []
+    
     self.invitations.each do |invitation|
-      invitation.solicit if invitation.status == Invitation::STATUSES[:pending]
+      if invitation.status == Invitation::STATUSES[:pending]
+        invitation.solicit 
+        solicited_players << invitation.player
+      end
     end
     
     self.status = case self.status
@@ -126,6 +146,8 @@ class Match < ActiveRecord::Base
                   when STATUSES[:closed] then STATUSES[:closed]
                   end
     self.save!
+    
+    solicited_players
   end
   
   def close_convocations!

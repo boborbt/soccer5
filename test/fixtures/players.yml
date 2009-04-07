@@ -2,5 +2,5 @@ player:
   name: Mario Rossi
   user_id:
   email: 
-  invite_always: false
+  invite_always: true
 

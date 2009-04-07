@@ -68,8 +68,34 @@ class MatchTest < ActiveSupport::TestCase
     Match.all_waiting_matches.each do |match|
       assert_equal true, match.is_waiting?
     end    
+  end
     
+  test "clone_match_from_last_one should build a new match based on the current one, but one week later" do
+    current_match = Match.current_match
+    new_match = Match.clone_match_from_last_one
+    
+    assert_equal current_match.location, new_match.location
+    assert_equal current_match.time, new_match.time
+    assert_equal current_match.date + 7.days, new_match.date    
   end
   
+  test "autoinvite_players! should send auto-invitations and change status to waiting" do
+    assert_equal 2, Match.all_open_matches.size
+    match = Match.all_open_matches[0]
+    
+    autoinvited_players = match.autoinvite_players!
+    assert_equal Match::STATUSES[:waiting], match.status
+    assert_equal players(:player), autoinvited_players[0]
+  end
+  
+  test "solicit_players! should send solicitations to players and change status to solicit1" do
+    assert_equal 2, Match.all_open_matches.size
+    match = Match.all_open_matches[0]
+    match.autoinvite_players!
+    
+    autoinvited_players = match.solicit_players!
+    assert_equal Match::STATUSES[:solicit1], match.status
+    assert_equal players(:player), autoinvited_players[0]
+  end
   
 end

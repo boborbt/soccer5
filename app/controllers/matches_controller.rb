@@ -41,11 +41,7 @@ class MatchesController < ApplicationController
   # GET /matches/new
   # GET /matches/new.xml
   def new
-    current_match = Match.current_match
-    @match = Match.new
-    @match.date = Match.current_match.date + 1.week
-    @match.time = Match.current_match.time
-    @match.location = Match.current_match.location
+    @match = Match.clone_match_from_last_one
     
     respond_to do |format|
       format.html # new.html.erb

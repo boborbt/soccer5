@@ -9,4 +9,6 @@ logger.info('CLOSE_MATCH-SCRIPT:: Analyzing matches (possibly) needing to be clo
   
   logger.info("CLOSE_MATCH-SCRIPT:: Closing match #{match.description}")  
   match.close_convocations!
+  
+  puts "Closed match #{match.description}"
 end
