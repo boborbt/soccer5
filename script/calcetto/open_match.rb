@@ -1,4 +1,4 @@
-if Match.last(:order => 'date ASC') < Date.today
+if Match.last(:order => 'date ASC').date < Date.today
   match = Match.clone_match_from_last_one
   match.save!
   
