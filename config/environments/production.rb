@@ -24,4 +24,4 @@ config.action_controller.perform_caching             = true
 # config.action_mailer.raise_delivery_errors = false
 
 config.action_mailer.default_url_options = { :host => "kdd.di.unito.it" }
-ActionController::AbstractRequest.relative_url_root = "/calcetto"
+ActionController::Base.relative_url_root = "/calcetto"
