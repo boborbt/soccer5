@@ -19,7 +19,7 @@ class MatchesController < ApplicationController
   def current
     current = Match.current_match || Match.find(:first, :order => 'date DESC')
     if !current.nil?
-      redirect_to match_path(Match.current_match)
+      redirect_to match_path(current)
     else
       flash[:notice] = 'No open matches found!'
       redirect_to :action => :index
