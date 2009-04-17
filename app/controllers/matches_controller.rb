@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
   end
 
   def current
-    current = Match.current_match
+    current = Match.current_match || Match.find(:first, :order => 'date DESC')
     if !current.nil?
       redirect_to match_path(Match.current_match)
     else
