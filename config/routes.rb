@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :locations
   map.resources :users
-  map.resource :session
+  map.resource  :session
   map.resources :matches
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
