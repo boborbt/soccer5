@@ -1,9 +1,31 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  group_id: 1
-  player_id: 1
+g1:
+  group: :one
+  player: p1
+  autoinvite: true
 
-two:
-  group_id: 1
-  player_id: 1
+g2:
+  group: :one
+  player: p2
+  autoinvite: true
+
+g3:
+  group: :one
+  player: p3
+  autoinvite: false
+
+g4:
+  group: :two
+  player: p4
+  autoinvite: false
+
+g5:
+  group: :two
+  player: p5
+  autoinvite: false
+
+g6:
+  group: :two
+  player: p6
+  autoinvite: true

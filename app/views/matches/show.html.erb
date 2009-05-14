@@ -1,5 +1,6 @@
 <h1>Match summary</h1>
-Where: <%= @match.location.name %> - <%= @match.location.address %> 
+Group: <%=h @match.group.name %><br/>
+Where: <%=h @match.location.name %> - <%= @match.location.address %> 
 		(<%= link_to 'map', @match.location.google_link, :popup => true %>) <br/>
 Date:  <%= @match.date.to_s(:short) %> <br/>
 Time:  <%= @match.time.to_s %> <br/>

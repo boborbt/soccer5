@@ -2,5 +2,33 @@ player:
   name: Mario Rossi
   user_id:
   email: 
-  invite_always: true
+  
+p1:
+  name: p1
+  user_id:
+  email:
+  
+p2:
+  name: p2
+  user_id:
+  email:
 
+p3:
+  name: p3
+  user_id:
+  email:
+  
+p4:
+  name: p4
+  user_id:
+  email:
+
+p5:
+  name: p5
+  user_id:
+  email:
+  
+p6:
+  name: p6
+  user_id:
+  email:

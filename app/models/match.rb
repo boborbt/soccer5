@@ -1,9 +1,11 @@
 class Match < ActiveRecord::Base
-  belongs_to :location
-  has_many :invitations
-  has_many :players, :through => :invitations
+  belongs_to  :location
+  has_many    :invitations
+  has_many    :players, :through => :invitations
+  belongs_to  :group
   
   validates_presence_of :location
+  validates_presence_of :group
   
   STATUSES = { 
                 :open => 'open', # match just opened, no invitation sent
@@ -32,8 +34,8 @@ class Match < ActiveRecord::Base
   # Retrieving matches              
   # --------------------------------------------------------------------------------
 
-  def Match.current_match
-    Match.all_matches_not_closed[0]
+  def Match.current_match(group)
+    Match.all_matches_not_closed(group)[0]
   end
     
   def Match.all_open_matches
@@ -120,7 +122,7 @@ class Match < ActiveRecord::Base
   # --------------------------------------------------------------------------------
   
   def autoinvite_players!
-    players = Player.find_all_by_invite_always(true)
+    players = self.group.players_to_autoinvite
     players.each do |player|
       self.players << player      
     end
