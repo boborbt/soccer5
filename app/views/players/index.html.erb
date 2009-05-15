@@ -5,7 +5,7 @@
     <th>Name</th>
     <th>User</th>
     <th>Email</th>
-    <th>Invite always</th>
+    <th>Autoinvitations</th>
   </tr>
 
 <% for player in @players %>
@@ -13,7 +13,7 @@
     <td><%=h player.name %></td>
     <td><%=h(player.user.login) unless player.user.nil? %></td>
     <td><%=h player.email %></td>
-    <td><%=h player.invite_always %></td>
+    <td>[<%=h player.groups_with_autoinvitations.map { |g| g.name }.join(',') %>]</td>
     <td><%= link_to 'Show', player %></td>
     <td><%= link_to 'Edit', edit_player_path(player) %></td>
     <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>

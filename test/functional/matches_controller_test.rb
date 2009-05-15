@@ -66,10 +66,11 @@ class MatchesControllerTest < ActionController::TestCase
   end
 
   test "should destroy match" do
+    match_group = matches(:match).group
     assert_difference('Match.count', -1) do
       delete :destroy, :id => matches(:match).id
     end
 
-    assert_redirected_to matches_path
+    assert_redirected_to group_matches_path(match_group)
   end
 end

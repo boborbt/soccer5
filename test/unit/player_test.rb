@@ -23,4 +23,8 @@ class PlayerTest < ActiveSupport::TestCase
     @player.user = @user
     assert_equal 'player@testingfactory.com', @player.email
   end
+  
+  test "should find all groups with autoinvitations" do
+    assert_equal [groups(:one)], players(:p1).groups_with_autoinvitations
+  end
 end

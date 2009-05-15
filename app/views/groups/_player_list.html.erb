@@ -1,0 +1,43 @@
+<div id="player_list">
+<fieldset><legend>Players included in the group</legend>
+<div id="players_in_group_list">
+	<ul>
+		<% group.players.each do |player| %>
+		<li id="player_<%= player.id %>">
+			<strong>name</strong>: <%= player.name %> 
+			<strong>autoinvite</strong>: 
+			<%= autoinvite_text = group.groupings.find_by_player_id(player).autoinvite ? "yes" : "no"
+			 	link_to_remote autoinvite_text, :update => 'player_list',
+							   :url => {:controller => :groups,
+										:action => 'toggle_autoinvite',
+										:id => group,
+										:player_id => player }
+			%>
+			<%= link_to_remote "Remove", :update => 'player_list', 
+							   :url => {:controller => :groups,
+										:action => 'remove_player',
+										:id => group,
+										:player_id => player }	%>
+		</li>
+		<% end %>
+	</ul>
+</div>
+</fieldset>
+<br>
+<fieldset><legend>Players <strong>not</strong> included in the group</legend>
+<div id="players_not_in_group_list">
+	<ul>
+		<% (Player.find(:all) - group.players).each do |player| %>
+		<li id="player_<%= player.id %>">
+			<strong>name</strong>: <%= player.name %> 
+			<%= link_to_remote "Add", :update => 'player_list', 
+							   :url => {:controller => :groups,
+										:action => 'add_player',
+										:id => group,
+										:player_id => player }	%>
+		</li>
+		<% end %>
+	</ul>
+</div>
+</fieldset>
+</div>

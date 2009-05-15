@@ -44,7 +44,7 @@ Status: <%= @match.status %>
 <span id='spinner' style='display:none'><%= image_tag 'spinner.gif' %></span><br/>
 
 <%= edit_link = if_authorized?(edit_match_path(@match)) { |opts| link_to( 'Edit', opts ) }
-    back_link = if_authorized?(matches_path) { |opts| link_to( 'Back', matches_path ) } 
+    back_link = if_authorized?(group_matches_path(@match.group)) { |opts| link_to( 'Back', opts ) } 
 
 	[edit_link, back_link].compact.join(' | ') + '<br/>'
 %>

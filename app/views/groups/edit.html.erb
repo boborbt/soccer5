@@ -1,0 +1,14 @@
+<h1>Editing group</h1>
+
+<% form_for(@group) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => f %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @group %> |
+<%= link_to 'Back', groups_path %>

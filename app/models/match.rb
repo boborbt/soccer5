@@ -1,6 +1,6 @@
 class Match < ActiveRecord::Base
   belongs_to  :location
-  has_many    :invitations
+  has_many    :invitations, :dependent => :destroy
   has_many    :players, :through => :invitations
   belongs_to  :group
   
@@ -18,8 +18,8 @@ class Match < ActiveRecord::Base
   # --------------------------------------------------------------------------------
   # Creating matches 
   # --------------------------------------------------------------------------------
-  def Match.clone_match_from_last_one
-    current_match = Match.current_match || Match.last(:order => 'date ASC')
+  def Match.clone_match_from_last_one(group)
+    current_match = Match.current_match(group) || Match.last(:order => 'date ASC')
     raise "No previous match found!" if current_match.nil?
     
     match = Match.new
@@ -35,7 +35,13 @@ class Match < ActiveRecord::Base
   # --------------------------------------------------------------------------------
 
   def Match.current_match(group)
-    Match.all_matches_not_closed(group)[0]
+    Match.find(:all, :conditions => %Q{status<>'#{STATUSES[:closed]}'}, :order => 'abs(date-now()) ASC').find do |m|
+      m.group == group
+    end
+  end
+  
+  def Match.last_match(group)
+    group.matches.find(:all, :order => 'abs(date-now()) ASC')[0]
   end
     
   def Match.all_open_matches
@@ -57,7 +63,7 @@ class Match < ActiveRecord::Base
                                        :solicit2 => STATUSES[:solicit2]}],
                      :order => 'abs(date-now()) ASC')
   end
-  
+    
   # --------------------------------------------------------------------------------
   # Querying 
   # --------------------------------------------------------------------------------

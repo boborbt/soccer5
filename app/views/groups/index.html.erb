@@ -1,0 +1,23 @@
+<h1>Groups</h1>
+
+<table>
+  <tr>
+	<th>Name</th>
+  </tr>
+
+<% for group in @groups %>
+  <tr>
+	<td><%=h group.name %></td>
+	<td><%= link_to 'Last', last_match_path(group) %>
+    <td><%= link_to 'Current', current_match_path(group) %></td>
+	<td><%= link_to 'Matches', group_matches_path(group) %>
+    <td><%= link_to 'Show', group %></td>
+    <td><%= link_to 'Edit', edit_group_path(group) %></td>
+    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New group', new_group_path %>

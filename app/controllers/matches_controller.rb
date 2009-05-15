@@ -7,7 +7,8 @@ class MatchesController < ApplicationController
   # GET/matches.rss
   # GET/maches.atom
   def index
-    @matches = Match.find(:all, :order => 'date DESC')
+    @group = Group.find(params[:group_id])
+    @matches = @group.matches.find(:all, :order => 'date DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,12 +18,25 @@ class MatchesController < ApplicationController
   end
 
   def current
-    current = Match.current_match || Match.find(:first, :order => 'date DESC')
+    group = Group.find(params[:id])
+    current = Match.current_match(group)
     if !current.nil?
       redirect_to match_path(current)
     else
       flash[:notice] = 'No open matches found!'
-      redirect_to :action => :index
+      redirect_to home_path
+    end
+  end
+  
+  def last
+    group = Group.find(params[:id])
+    match = Match.last_match(group)
+    
+    if !match.nil?
+      redirect_to match_path(match)
+    else
+      flash[:notice] = 'No open matches found!'
+      redirect_to home_path
     end
   end
    
@@ -41,7 +55,8 @@ class MatchesController < ApplicationController
   # GET /matches/new
   # GET /matches/new.xml
   def new
-    @match = Match.clone_match_from_last_one
+    @group = Group.find(params[:group_id])
+    @match = Match.clone_match_from_last_one(@group)
     
     respond_to do |format|
       format.html # new.html.erb
@@ -57,7 +72,9 @@ class MatchesController < ApplicationController
   # POST /matches
   # POST /matches.xml
   def create
+    @group = Group.find(params[:group_id])
     @match = Match.new(params[:match])
+    @match.group = @group
 
     respond_to do |format|
       if @match.save

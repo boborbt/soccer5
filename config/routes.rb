@@ -4,7 +4,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :locations
   map.resources :users
   map.resource  :session
-  map.resources :matches
+  map.resources :groups do |group|
+    group.resources :matches, :shallow => true,
+                    :member => { :current => :get,
+                                 :last => :get }
+  end
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'
@@ -12,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   
   map.home '/', :controller => 'groups', :action => 'index'
+  # map.current_match '/current_match/:id', :controller => 'matches', :action => 'current'
   
   # The priority is based upon order of creation: first created -> highest priority.
 

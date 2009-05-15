@@ -1,0 +1,13 @@
+<p>
+  <%= form.label :name %>:
+	<%= form.text_field :name %> <br>
+	
+  <%= form.label :autocreate_matches %>:
+ 	<%= form.select( :autocreate_matches, [['Yes', true],['No', false]]) %> <br>
+
+  <%= form.label :solicit1_ndays, 'N. days from match date to send first solicitation' %>:
+  	<%= form.select :solicit1_ndays, (1..31).to_a %><br>	
+
+  <%= form.label :solicit2_ndays, 'N. days from match date to send second solicitation' %>:
+	<%= form.select :solicit2_ndays, (1..31).to_a %><br>	
+</p>

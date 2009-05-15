@@ -1,0 +1,11 @@
+<p>
+  <b>Group Name:</b>  <%=h @group.name %> <br/>
+  <b>Auto create matches:</b> <%=h @group.autocreate_matches %> <br/>
+  <b>N. days from match date to send first solicitation:</b><%=h @group.solicit1_ndays %> <br/>
+  <b>N. days from match date to send second solicitation:</b><%=h @group.solicit2_ndays %> <br/>
+</p>
+
+<%= render :partial => 'player_list', :locals => { :group => @group } %>
+
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>
