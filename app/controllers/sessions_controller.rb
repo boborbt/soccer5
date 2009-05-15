@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_to current_match_path
+      redirect_to home_path
       flash[:notice] = "Logged in successfully"
     else
       flash[:notice] = 'Cannot login'
@@ -28,6 +28,6 @@ class SessionsController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_to current_match_path
+    redirect_to home_path
   end
 end

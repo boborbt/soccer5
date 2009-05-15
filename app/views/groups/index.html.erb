@@ -11,13 +11,13 @@
 	<td><%= link_to 'Last', last_match_path(group) %>
     <td><%= link_to 'Current', current_match_path(group) %></td>
 	<td><%= link_to 'Matches', group_matches_path(group) %>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= if_authorized?(:action => :show) { link_to 'Show', group } %></td>
+    <td><%= if_authorized?(:action => :edit) { link_to 'Edit', edit_group_path(group) } %></td>
+    <td><%= if_authorized?(:action => :destroy) { link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New group', new_group_path %>
+<%= if_authorized?(:action => 'new') { link_to 'New group', new_group_path } %>

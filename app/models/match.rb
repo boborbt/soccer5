@@ -109,7 +109,7 @@ class Match < ActiveRecord::Base
   end
   
   def uninvited_players 
-    Player.find(:all) - players
+    self.group.players - players
   end
   
   # handles is_xxx? methods (meant to return status values: e.g., is_waiting?, is_closed?, etc.)

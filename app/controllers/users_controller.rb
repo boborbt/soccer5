@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user.save
     if @user.errors.empty?
       self.current_user = @user
-      redirect_to current_match_path
+      redirect_to home_path
       flash[:notice] = "Thanks for signing up!"
     else
       render :action => 'new'

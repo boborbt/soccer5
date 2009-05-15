@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
   # authorize current and show actions to anybody, even if not logged in
-  skip_before_filter :login_required, :only => [:current, :show, :index]
+  skip_before_filter :login_required, :only => [:current, :show, :index, :last]
   
   # GET /matches
   # GET /matches.xml
@@ -109,10 +109,11 @@ class MatchesController < ApplicationController
   # DELETE /matches/1.xml
   def destroy
     @match = Match.find(params[:id])
+    @group = @match.group
     @match.destroy
 
     respond_to do |format|
-      format.html { redirect_to(matches_url) }
+      format.html { redirect_to(group_matches_url(@group)) }
       format.xml  { head :ok }
     end
   end

@@ -14,7 +14,7 @@ class InvitationsMailer < ActionMailer::Base
     from       'boborbt@gmail.com'
     sent_on    sent_at
     
-    body       :invitation => invitation    
+    body       :invitation => invitation   
   end
   
   def close_convocations(invitation, sent_at = Time.now)
@@ -24,7 +24,9 @@ class InvitationsMailer < ActionMailer::Base
     sent_on     sent_at
     
     body        :accepted_invitations => invitation.match.accepted_invitations,
-                :invitations_with_additional_players => invitation.match.invitations_with_additional_players
+                :invitations_with_additional_players => invitation.match.invitations_with_additional_players,
+                :invitation => invitation
+                
     
   end
 end
