@@ -12,13 +12,13 @@
 	<td><%=h match.location.name %></td>
 	<td><%= match.date.to_s(:short) %></td>
 	<td><%= match.time %></td>
-    <td><%= link_to 'Show', match %></td>
-    <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= if_authorized?(:action => :show) { link_to 'Show', match }  %></td>
+    <td><%= if_authorized?(:action => :edit) { link_to 'Edit', edit_match_path(match) } %></td>
+    <td><%= if_authorized?(:action => :destroy) { link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New match', new_group_match_path(@group) %>
+<%= if_authorized?( :action => :new ) { link_to 'New match', new_group_match_path(@group) } %>
