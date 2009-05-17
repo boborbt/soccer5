@@ -5,7 +5,8 @@
 	<tr>
 		<td><%=h user.login %></td>
 		<td><%=h user.role.name %></td>
-		<td><%= link_to 'edit', edit_user_path(user) %>
+		<td><%= if_authorized?(:action => :edit) { link_to 'edit', edit_user_path(user) } %></td>
+		<td><%= if_authorized?(:action => :destroy) { link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete } %></td>		    
 	</tr>	
 	<% end %>
 </table>

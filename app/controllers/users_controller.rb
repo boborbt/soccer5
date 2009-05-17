@@ -1,21 +1,25 @@
 class UsersController < ApplicationController  
-  skip_before_filter :login_required, :only => [:create, :new]
+  # skip_before_filter :login_required, :only => [:create, :new]
   
   # render new.rhtml
   def new
   end
 
-  def create
+  def create    
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
     @user = User.new(params[:user])
+
     @user.save
     if @user.errors.empty?
       self.current_user = @user
-      redirect_to home_path
+      @user.role = Role['user']
+      @user.save!
+
+      redirect_to home_path      
       flash[:notice] = "Thanks for signing up!"
     else
       render :action => 'new'
@@ -58,6 +62,15 @@ class UsersController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  def destroy
+    @user = User.find(params[:id])
+    respond_to do |format|
+      flash[:notice] = @user.nil? ? 'User not found' : 'User destroyed' 
+      @user.destroy
+      format.html { redirect_to home_path }
     end
   end
 

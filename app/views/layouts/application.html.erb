@@ -12,23 +12,29 @@
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
-<% if logged_in? %>
-	<div id="status_box">You are logged in as:<%= current_user.login  %>
-		<div id="quick-links">
-			<hr	>
-			Quick links<br/>
-			<ul><li><%= link_to 'groups', home_path %></li>
-				<li><%= link_to 'players', players_path %></li>
-				<li><%= link_to 'locations', locations_path %></li>
-				<li><%= link_to 'users', users_path %></li>
-				<li><%= link_to 'logout', logout_path %>
-			</ul>
+<div id="page">
+	<p style="color: green"><%= flash[:notice] %></p>
+	<% if logged_in? %>
+		<div id="status_box">You are logged in as:<%= current_user.login  %>
+			<div id="quick-links">
+				<hr	>
+				Quick links<br/>
+				<ul><li><%= link_to 'groups', home_path %></li>
+					<li><%= link_to 'players', players_path %></li>
+					<li><%= link_to 'locations', locations_path %></li>
+					<li><%= link_to 'users', users_path %></li>
+					<li><%= link_to 'logout', logout_path %>
+				</ul>
+			</div>
 		</div>
-	</div>
-<% end %>
+	<% else %>
+		<div id="status_box"><%= link_to 'login', login_path %></div>
+	
+	<% end %>
 
-<%= yield  %>
+	<%= yield  %>
+	
+</div>
 
 </body>
 </html>

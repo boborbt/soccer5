@@ -1,4 +1,5 @@
 class Role < ActiveRecord::Base
+  has_many :role_attributions
   has_many :users, :through => :role_attributions
   has_one :player
   

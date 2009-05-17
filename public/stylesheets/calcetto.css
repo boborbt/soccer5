@@ -1,8 +1,16 @@
+#page {
+	background-color: #FFF;	
+	border: 1px solid #999;
+	padding: 30px;
+	margin:auto;
+	margin-right: 200px;
+}
+
 #status_box {
-	position: absolute;
+	position: fixed;
 	right: 10px;
 	top: 10px;
-	width: 100px;
+	width: 150px;
 	border: 1px solid #999;
 	padding: 10px;
 	background-color:#E7E7E7;
@@ -42,3 +50,4 @@
 #closed-match {
 	color: #F00;
 }
+
