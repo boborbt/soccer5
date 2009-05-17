@@ -5,3 +5,6 @@ root:
 
 other:
   name: other
+
+user:
+  name: user
