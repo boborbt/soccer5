@@ -44,9 +44,9 @@ class InvitationsController < ApplicationController
       
       @invitation.num_additional_players = num_additional_players
       @invitation.save!
-      redirect_to current_match_path(@invitation.match.group)
+      redirect_to group_current_match_path(@invitation.match.group)
     rescue InvitationError
-      redirect_to current_match_path(@invitation.match.group)
+      redirect_to group_current_match_path(@invitation.match.group)
       flash[:notice] = 'A problem occurred:' + $!.message
       logger.info(flash[:notice])
     end    

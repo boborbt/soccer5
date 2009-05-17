@@ -18,7 +18,7 @@ class MatchesController < ApplicationController
   end
 
   def current
-    group = Group.find(params[:id])
+    group = Group.find(params[:group_id])
     current = Match.current_match(group)
     if !current.nil?
       redirect_to match_path(current)
@@ -29,7 +29,7 @@ class MatchesController < ApplicationController
   end
   
   def last
-    group = Group.find(params[:id])
+    group = Group.find(params[:group_id])
     match = Match.last_match(group)
     
     if !match.nil?

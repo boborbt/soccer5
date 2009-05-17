@@ -5,10 +5,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource  :session
   map.resources :groups do |group|
-    group.resources :matches, :shallow => true,
-                    :member => { :current => :get,
-                                 :last => :get }
+    group.resources :matches, :shallow => true
   end
+  
+  map.group_current_match '/groups/:group_id/current_match',  {:controller => 'matches', :action => 'current' }
+  map.group_last_match    '/groups/:group_id/last_match',     {:controller => 'matches', :action => 'last' }
+
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'

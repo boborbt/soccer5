@@ -8,7 +8,7 @@ class MatchesControllerTest < ActionController::TestCase
   end
   
   test "should get index" do
-    get :index
+    get :index, :group_id => groups(:one)
     assert_response :success
     assert_not_nil assigns(:matches)
   end
@@ -18,33 +18,33 @@ class MatchesControllerTest < ActionController::TestCase
     match.date = Date.today
     match.save!
     
-    get :current
+    get :current, :group_id => match.group.id
     assert_redirected_to match_path(matches(:match))
   end
 
   test "should get new" do
-    get :new
+    get :new, :group_id => groups(:one)
     assert_response :success
   end
   
   test "new matches shoudl be 1 week after current match" do
-    get :new
-    assert_equal assigns(:match).date, Match.current_match.date + 1.week
+    get :new, :group_id => groups(:one)
+    assert_equal assigns(:match).date, Match.current_match(groups(:one)).date + 1.week
   end
   
   test "new matchees should be at the same time as the current match" do
-    get :new
-    assert_equal assigns(:match).time, Match.current_match.time
+    get :new, :group_id => groups(:one)
+    assert_equal assigns(:match).time, Match.current_match(groups(:one)).time
   end
   
   test "new matches should be in the same place of the current match" do
-    get :new
-    assert_equal assigns(:match).location, Match.current_match.location
+    get :new, :group_id => groups(:one)
+    assert_equal assigns(:match).location, Match.current_match(groups(:one)).location
   end
 
   test "should create match" do
     assert_difference('Match.count') do
-      post :create, :match => { :location => locations(:sporting) }
+      post :create, :match => { :location => locations(:sporting) }, :group_id => groups(:one)
     end
 
     assert_redirected_to match_path(assigns(:match))

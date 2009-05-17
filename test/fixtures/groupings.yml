@@ -1,5 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+g0:
+  group: :one
+  player: player
+  autoinvite: true
+  
 g1:
   group: :one
   player: p1

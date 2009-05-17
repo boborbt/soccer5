@@ -71,8 +71,8 @@ class MatchTest < ActiveSupport::TestCase
   end
     
   test "clone_match_from_last_one should build a new match based on the current one, but one week later" do
-    current_match = Match.current_match
-    new_match = Match.clone_match_from_last_one
+    current_match = Match.current_match(groups(:one))
+    new_match = Match.clone_match_from_last_one(groups(:one))
     
     assert_equal current_match.location, new_match.location
     assert_equal current_match.time, new_match.time
