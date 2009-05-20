@@ -1,7 +1,7 @@
-<%= @message %>
+<%= @message %><br>
 
 <% unless @invitation.nil? %>
-	Please specify the number of your friends (not in the mailing list) are coming: <br>
+	Please specify how many of your friends (not in the mailing list) are coming: <br>
 		<% form_tag :controller => 'invitations', 
 				 	:action => 'set_additional_players', 
 					:refusal_code => @invitation.refusal_code do -%> 
