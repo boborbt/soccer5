@@ -27,13 +27,16 @@
 	
 	padding: 2px;
 	padding: 5px;
-	background-color: #E1E1E1;
-	color: #089405;
+	
+	color: #30324D;
+}
+
+#notice {
+	background-color: #C5FBAF;
 }
 
 #error {
-	background-color: #9B0000;
-	color: #FFF800;
+	background-color: #E94F46;
 }
 
 
