@@ -19,13 +19,14 @@ class Match < ActiveRecord::Base
   # Creating matches 
   # --------------------------------------------------------------------------------
   def Match.clone_match_from_last_one(group)
-    current_match = Match.current_match(group) || Match.last(:order => 'date ASC')
+    current_match = Match.current_match(group) || Match.last_match(group)
     raise "No previous match found!" if current_match.nil?
     
     match = Match.new
     match.date = current_match.date + 1.week
     match.time = current_match.time
     match.location = current_match.location
+    match.group = group
     
     match
   end
