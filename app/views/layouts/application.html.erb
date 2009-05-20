@@ -13,7 +13,6 @@
 <body>
 
 <div id="page">
-	<p style="color: green"><%= flash[:notice] %></p>
 	<% if logged_in? %>
 		<div id="status_box">You are logged in as:<%= current_user.login  %>
 			<div id="quick-links">
@@ -28,13 +27,16 @@
 			</div>
 		</div>
 	<% else %>
-		<div id="status_box"><%= link_to 'login', login_path %></div>
+		<div id="status_box">
+			<ul><li><%= link_to 'login', login_path %></li></ul>
+		</div>
 	
 	<% end %>
 
-	<%= yield  %>
-	
+	<%= yield  %>	
 </div>
+
+<%= render :partial => 'layouts/flash', :locals => {:messages => flash} %>
 
 </body>
 </html>

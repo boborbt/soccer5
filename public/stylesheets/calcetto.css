@@ -1,20 +1,67 @@
 #page {
 	background-color: #FFF;	
-	border: 1px solid #999;
+	border: 1px solid #000;
 	padding: 30px;
 	margin:auto;
 	margin-right: 200px;
+	overflow: auto;
 }
+
 
 #status_box {
 	position: fixed;
 	right: 10px;
 	top: 10px;
 	width: 150px;
-	border: 1px solid #999;
+	border: 1px solid #000;
 	padding: 10px;
 	background-color:#E7E7E7;
 }
+
+#notice, #error {
+	position: fixed;
+	left:  10px;
+	right: 10px;
+	bottom: 10px;
+	margin: auto;
+	
+	padding: 2px;
+	padding: 5px;
+	background-color: #E1E1E1;
+	color: #089405;
+}
+
+#error {
+	background-color: #9B0000;
+	color: #FFF800;
+}
+
+
+#status_box ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#status_box ul li {
+	list-style-type: none;
+}
+
+#status_box ul li a {
+	display: block;
+	margin-top: 2px;
+	padding: 2px;
+	padding-left: 4px;
+	text-decoration: none;
+	border: 1px solid #999;
+}
+
+#status_box ul li a:hover {
+	color: #fff;
+	background-color: #A4A4A4 ;
+}
+
+
+
 
 #invitations  {
 	margin-top: 2em;

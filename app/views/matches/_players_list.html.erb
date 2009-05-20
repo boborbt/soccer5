@@ -39,7 +39,7 @@
 		</div>
 
 	<% end %>
+
+	<div id="info"></div>
+	<%= render :partial => 'layouts/flash', :locals => { :messages => { :error => error } } if defined? error %>
 </div>
-
-<div id="info"></div>
-
