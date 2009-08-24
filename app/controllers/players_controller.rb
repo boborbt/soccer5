@@ -3,6 +3,7 @@ class PlayersController < ApplicationController
   # GET /players.xml
   def index
     @players = Player.find(:all)
+    @players_emails = @players.map(&:email).join(',')
 
     respond_to do |format|
       format.html # index.html.erb

@@ -17,7 +17,11 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   
+  map.prepare_mail '/mails/prepare', :controller => 'mails', :action => 'prepare'
+  map.deliver_mail '/mails/send', :controller => 'mails', :action => 'deliver', :method => :post
+  
   map.home '/', :controller => 'groups', :action => 'index'
+  
   # map.current_match '/current_match/:id', :controller => 'matches', :action => 'current'
   
   # The priority is based upon order of creation: first created -> highest priority.

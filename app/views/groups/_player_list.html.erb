@@ -21,13 +21,15 @@
 		</li>
 		<% end %>
 	</ul>
+	
+	<%= link_to 'Email them all', prepare_mail_path(:recipients => group.players.map(&:email).join(',')) %>
 </div>
 </fieldset>
 <br>
 <fieldset><legend>Players <strong>not</strong> included in the group</legend>
 <div id="players_not_in_group_list">
 	<ul>
-		<% (Player.find(:all) - group.players).each do |player| %>
+		<% group.players_not_in_group.each do |player| %>
 		<li id="player_<%= player.id %>">
 			<strong>name</strong>: <%= player.name %> 
 			<%= link_to_remote "Add", :update => 'player_list', 
@@ -38,6 +40,8 @@
 		</li>
 		<% end %>
 	</ul>
+	
+	<%= link_to 'Email them all', prepare_mail_path(:recipients => group.players_not_in_group.map(&:email).join(',')) %>
 </div>
 </fieldset>
 </div>

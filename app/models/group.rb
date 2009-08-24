@@ -6,4 +6,8 @@ class Group < ActiveRecord::Base
   def players_to_autoinvite
     groupings.find_all_by_autoinvite(true).map { |g| g.player }
   end
+  
+  def players_not_in_group
+    (Player.find(:all) - self.players)
+  end
 end
