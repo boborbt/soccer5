@@ -3,6 +3,7 @@
 	user_can_force_acceptance =  authorize_action?(:controller => :invitations, :action => :force_accept )
 	user_can_force_rejection  =  authorize_action?(:controller => :invitations, :action => :force_reject )
 	user_can_perform_actions  =  user_can_uninvite || user_can_force_rejection || user_can_force_acceptance
+
 %>
 
 <table>
@@ -12,7 +13,7 @@
 	<th>#mail</th>
 	<th>status</th>
 	<th>additional players</th>
-	<%= '<th colspan=3>action</th>'  if user_can_perform_actions %>
+	<%= '<th colspan=4>action</th>'  if user_can_perform_actions %>
 	</tr>
 	
 	<% index = 0 %>
@@ -43,7 +44,7 @@
 									:url => url_for(:controller => :invitations,
 													:action => :force_reject,
 													:id => invitation),
-													:update => 'player_list' } )) if user_can_force_rejection %>
+													:update => 'player_list' } )) if user_can_force_rejection %>													
 		</tr>				
 	<% end %>
 	<% additional_players_invitations.each do |invitation| %>
@@ -52,3 +53,9 @@
 	<% end unless !defined?(additional_players_invitations) %>
 	
 </table>
+
+<%=
+	if_authorized?( :controller => :mails, :action => :prepare ) do |opts|
+		link_to 'Email them all', prepare_mail_path(:recipients => invitations.map { |i| i.player.email }.join(','))
+	end
+%>

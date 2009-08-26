@@ -4,9 +4,9 @@
 		<div class='status'>
 			<span class="header">Accepted</span>
 			<% ap_invitations = @match.invitations_with_additional_players %>
-			<%= render :partial => 'matches/players_list_generic', :locals => {:invitations => @match.accepted_invitations,
-																			   :additional_players_invitations => ap_invitations 
-																			   } %>			
+			<%= render :partial => 'matches/players_list_generic', 
+					   :locals => {:invitations => @match.accepted_invitations,
+					   :additional_players_invitations => ap_invitations } %>			
 		</div>
 		
 		<div class='status'>
