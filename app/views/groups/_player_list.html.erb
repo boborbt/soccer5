@@ -1,26 +1,41 @@
 <div id="player_list">
 <fieldset><legend>Players included in the group</legend>
 <div id="players_in_group_list">
-	<ul>
+	<table>
+		<tr>
+			<th>Name</th><th>autoinvite</th><th>autoaccept</th><th>action</th>
+		</tr>
 		<% group.players.each do |player| %>
-		<li id="player_<%= player.id %>">
-			<strong>name</strong>: <%= player.name %> 
-			<strong>autoinvite</strong>: 
+		<tr>
+		<tr id="player_<%= player.id %>">
+			<td><%= player.name %> </td>
+			<td> 
 			<%= autoinvite_text = group.groupings.find_by_player_id(player).autoinvite ? "yes" : "no"
 			 	link_to_remote autoinvite_text, :update => 'player_list',
 							   :url => {:controller => :groups,
 										:action => 'toggle_autoinvite',
 										:id => group,
 										:player_id => player }
+			%></td>
+			<td>
+			<%= autoaccept_text = group.groupings.find_by_player_id(player).autoaccept ? "yes" : "no" 
+				link_to_remote autoaccept_text, :update => 'player_list',
+								:url => {:controller => :groups,
+										 :action => 'toggle_autoaccept',
+										 :id => group,
+										 :player_id => player }										
 			%>
+			</td>
+			<td>
 			<%= link_to_remote "Remove", :update => 'player_list', 
 							   :url => {:controller => :groups,
 										:action => 'remove_player',
 										:id => group,
 										:player_id => player }	%>
-		</li>
+			</td>
+		</tr>
 		<% end %>
-	</ul>
+	</table>
 	
 	<%= link_to 'Email them all', prepare_mail_path(:recipients => group.players.map(&:email).join(',')) %>
 </div>

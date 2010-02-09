@@ -17,6 +17,10 @@ class Invitation < ActiveRecord::Base
 
   
   def after_create
+    if player.autoaccept_invitations(self.match)
+      self.accept
+    end
+    
     InvitationsMailer.deliver_invitation(self)
     self.number_of_sent_mails += 1
     self.save!
@@ -40,6 +44,10 @@ class Invitation < ActiveRecord::Base
   
   def status
     self[:status] || STATUSES[:pending]
+  end
+  
+  def accepted?
+    self.status == STATUSES[:accepted]
   end
   
   def solicit

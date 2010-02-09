@@ -1,12 +1,18 @@
 Ciao!
 	sei invitato alla partita del <%= @invitation.match.date.to_s %> (ore <%= @invitation.match.time.to_s%>).
 
+<% if @invitation.accepted? %>
+L'invito è stato accettato automaticamente. L'url per l'accettazione sarebbe stato:
+<% else %>
 Per confermare la tua presenza (vedi anche la nota [1]) visita l'url:
-	<%= url_for :controller => :invitations, 
-				:action => :accept_invitation, 
-				:id => @invitation.acceptance_code,
-				:only_path => false,
-				:protocol => 'https' %>
+<% end %>	
+
+
+<%= url_for :controller => :invitations, 
+			:action => :accept_invitation, 
+			:id => @invitation.acceptance_code,
+			:only_path => false,
+			:protocol => 'https' %>
 
 per rifiutare l'invito e evitare ulteriori mail relative a questa partita 
 visita l'url (vedi anche la nota [2]):

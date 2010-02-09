@@ -109,4 +109,15 @@ class GroupsController < ApplicationController
     render :partial => 'player_list', :locals => { :group => group }
   end
   
+  def toggle_autoaccept
+    group = Group.find(params[:id])
+    player = Player.find(params[:player_id])
+    grouping = group.groupings.find_by_player_id(player)
+    grouping.autoaccept = !grouping.autoaccept
+    grouping.save!
+    group.save!
+    render :partial => 'player_list', :locals => { :group => group }
+  end
+  
+  
 end

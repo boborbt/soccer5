@@ -15,4 +15,8 @@ class Player < ActiveRecord::Base
   def groups_with_autoinvitations
     groupings.find_all_by_player_id_and_autoinvite(self, true).map { |g| g.group }.compact
   end
+  
+  def autoaccept_invitations match
+    groupings.find_by_group_id_and_autoaccept(match.group,true)
+  end
 end
