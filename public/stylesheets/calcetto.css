@@ -97,6 +97,10 @@
 	color: #FF0;
 }
 
+.numeric {
+	text-align: center;
+}
+
 #closed-match {
 	color: #F00;
 }

@@ -12,7 +12,7 @@
 	<th>player</th>
 	<th>#mail</th>
 	<th>status</th>
-	<th>additional players</th>
+	<th>#brought</th>
 	<%= '<th colspan=4>action</th>'  if user_can_perform_actions %>
 	</tr>
 	
@@ -26,9 +26,9 @@
 		<tr class="player <%= invitation.status %> <%=quota_class%>"> 
 			<td><%= index %>.</td>
 			<td><%= invitation.player.name %></td>
-			<td><%= invitation.number_of_sent_mails%></td>
+			<td class="numeric"><%= invitation.number_of_sent_mails%></td>
 			<td><%= invitation.status %> <%= if invitation.status == 'accepted' then 'on '+invitation.accepted_at.to_s(:long) else '' end %></td>
-			<td><%= invitation.num_additional_players %></td>
+			<td class="numeric"><%= invitation.num_additional_players %></td>
 			<%= content_tag( :td, link_to_remote( "Un-invite", {
 									:url => url_for(:controller => :matches, 
 													:action => :uninvite_player, 
