@@ -43,18 +43,23 @@
 <br>
 <fieldset><legend>Players <strong>not</strong> included in the group</legend>
 <div id="players_not_in_group_list">
-	<ul>
+	<table>
+		<tr><th>name</th><th>action</th></tr>
 		<% group.players_not_in_group.each do |player| %>
-		<li id="player_<%= player.id %>">
-			<strong>name</strong>: <%= player.name %> 
+		<tr>
+		<td id="player_<%= player.id %>">
+			<%= player.name %>
+		</td>
+		<td>
 			<%= link_to_remote "Add", :update => 'player_list', 
 							   :url => {:controller => :groups,
 										:action => 'add_player',
 										:id => group,
 										:player_id => player }	%>
-		</li>
+		</td>
+		</tr>
 		<% end %>
-	</ul>
+	</table>
 	
 	<%= link_to 'Email them all', prepare_mail_path(:recipients => group.players_not_in_group.map(&:email).join(',')) %>
 </div>
