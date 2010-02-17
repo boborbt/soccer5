@@ -60,6 +60,8 @@ Rails::Initializer.run do |config|
     :secret      => 'c7a8756f28978ad5d4653d67c8fb4326a2d76597d5181381e4ede90ee7f69e4af8ae7d938b9b20e13f10a940e330cfa13d17861be09df9e0acda811ff6e91c34'
   }
   
+  config.gem 'role_based_authorization'
+  
   # require 'tlsmail'
   # Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
   # 

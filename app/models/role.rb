@@ -17,7 +17,7 @@ class Role < ActiveRecord::Base
   
   def Role.[](name)
     begin
-      Role.find_by_name(name)
+      Role.find_by_name(name).id
     rescue
       false
     end
