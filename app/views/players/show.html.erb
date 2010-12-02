@@ -13,6 +13,17 @@
   <%=h @player.email %> <%= "(inferred)" if @player[:email].blank? %>
 </p>
 
+<p>
+  <b>Address:</b>
+  <%=h @player.address %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%=h @player.phone %>
+</p>
+
+
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'Back', players_path %>

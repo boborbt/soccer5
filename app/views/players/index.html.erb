@@ -3,16 +3,13 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>User</th>
-    <th>Email</th>
-    <th>Autoinvitations</th>
+ 	<th title="<%= player_fields_summary_description %>">Other fields</th>
+   <th>Autoinvitations</th>
   </tr>
-
 <% for player in @players %>
   <tr>
     <td><%=h player.name %></td>
-    <td><%=h(player.user.login) unless player.user.nil? %></td>
-    <td><%=h player.email %></td>
+	<td><%=h player_fields_summary(player) %>
     <td>[<%=h player.groups_with_autoinvitations.map { |g| g.name }.join(',') %>]</td>
     <td><%= link_to 'Show', player %></td>
     <td><%= link_to 'Edit', edit_player_path(player) %></td>
@@ -20,6 +17,7 @@
   </tr>
 <% end %>
 </table>
+
 
 <br />
 
