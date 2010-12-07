@@ -7,7 +7,8 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @players }
+      format.xml { render :xml => @players }
+      format.text
     end
   end
 

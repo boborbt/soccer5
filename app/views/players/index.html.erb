@@ -23,3 +23,4 @@
 
 <%= link_to 'New player', new_player_path %><br>
 <%= link_to 'Email them all', prepare_mail_path(:recipients => @players_emails) %>
+<%= link_to 'List of addresses', players_path(:format => :txt) %>

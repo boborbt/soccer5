@@ -1,0 +1,5 @@
+<% for player in @players do -%>
+<% unless player.address.blank? && player.phone.blank? -%>
+<%= player.name %>, <%= player.address %>, <%= player.phone %>
+<% end -%>
+<% end -%>
