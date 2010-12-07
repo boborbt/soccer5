@@ -1,5 +1,9 @@
+
+default_run_options[:pty] = true  # Must be set for the password prompt from git to work
 set :application, "calcetto"
-set :repository,  "https://kdd.di.unito.it/svn/calcetto/trunk"
+set :repository,  "ssh://mluser@kdd.di.unito.it/usr/local/GIT/calcetto"
+set :branch, "master"
+set :deploy_via, :remote_cache
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -14,7 +18,7 @@ set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
-# set :scm, :subversion
+set :scm, :git
 
 role :app, "kdd.di.unito.it"
 role :web, "kdd.di.unito.it"
