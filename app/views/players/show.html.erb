@@ -12,7 +12,14 @@
   <b>Email:</b>
   <%=h @player.email %> <%= "(inferred)" if @player[:email].blank? %>
 </p>
-
+<p>
+  <b>Birth date:</b>
+  <%=h @player.birth_date %>
+</p>
+<p>
+  <b>Birth place:</b>
+  <%=h @player.birth_place %>
+</p>
 <p>
   <b>Address:</b>
   <%=h @player.address %>
