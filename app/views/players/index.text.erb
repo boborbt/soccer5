@@ -1,5 +1,6 @@
+Nome | Indirizzo | Numero di Telefono | Data di nascita | Luogo di nascita 
 <% for player in @players do -%>
 <% unless [:address, :phone, :birth_date, :birth_place].all? { |attr| player.send(attr).blank? } -%>
-<%= player.name %>, <%= player.birth_date %>, <%= player.birth_place %>, <%= player.address %>, <%= player.phone %>
+<%= [:name, :address, :phone, :birth_date, :birth_place].map { |attr| player.send(attr) }.join(' | ') %>
 <% end -%>
 <% end -%>
