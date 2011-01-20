@@ -1,5 +1,5 @@
 <% for player in @players do -%>
-<% unless player.address.blank? && player.phone.blank? -%>
-<%= player.name %>, <%= player.address %>, <%= player.phone %>
+<% unless [:address, :phone, :birth_date, :birth_place].all? { |attr| player.send(attr).blank? } -%>
+<%= player.name %>, <%= player.birth_date %>, <%= player.birth_place %>, <%= player.address %>, <%= player.phone %>
 <% end -%>
 <% end -%>
