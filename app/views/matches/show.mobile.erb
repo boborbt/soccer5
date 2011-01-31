@@ -1,0 +1,14 @@
+<h1>Match summary</h1>
+<div class="info">
+Group: <%=h @match.group.name %><br/>
+Where: <%=h @match.location.name %> - <%= @match.location.address %> 
+Date:  <%= @match.date.to_s(:short) %> <br/>
+Time:  <%= @match.time.to_s %> <br/>
+Current number of coming players: <%= @match.number_of_coming_players %><br/>
+Status: <%= @match.status %>
+</div>
+
+<%= render :partial => 'players_list' %>
+
+<br/>
+

@@ -1,0 +1,13 @@
+<h1>Groups</h1>
+
+<ul>
+<% for group in @groups %>
+<li> 
+	<%= link_to group.name, group_last_match_path(group) %>
+</li>
+<% end %>
+</ul>
+
+<br />
+
+<%= if_authorized?(:action => 'new') { link_to 'New group', new_group_path } %>

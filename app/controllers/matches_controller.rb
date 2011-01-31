@@ -13,6 +13,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @matches }
+      format.mobile
       format.atom 
     end
   end
@@ -48,6 +49,7 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.mobile
       format.xml  { render :xml => @match }
     end
   end
