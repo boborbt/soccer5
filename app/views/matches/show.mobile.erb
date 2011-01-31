@@ -1,3 +1,4 @@
+<%= content_for :toolbar, link_to("matches list", group_matches_path(@match.group), :class => 'button') %>
 <h1>Match summary</h1>
 <div class="info">
 Group: <%=h @match.group.name %><br/>

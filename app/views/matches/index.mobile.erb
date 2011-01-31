@@ -1,0 +1,12 @@
+<h1>Matches</h1>
+
+<ul>
+<% for match in @matches %>
+  <li class="arrow"><%=
+	link_to match.location.name + match.date.to_s(:short), match_path(match) %></li>
+<% end %>
+</ul>
+
+<br />
+
+<%= if_authorized?( :action => :new ) { link_to 'New match', new_group_match_path(@group) } %>

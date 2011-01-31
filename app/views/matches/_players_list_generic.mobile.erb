@@ -1,5 +1,7 @@
 <ul>
+	<% counter = 1 %>
 	<% invitations.each do |invitation| %>
-	<li><%= invitation.player.name %></li>
+	<li><%= "%d. %s" % [counter, invitation.player.name] %></li>
+	<% counter+=1 %>
 	<% end %>
 </ul>
