@@ -1,5 +1,5 @@
 <%= content_for :title, "Match #{@match.date.to_s(:short)}" %>
-<%= content_for :toolbar, link_to("matches list", group_matches_path(@match.group), :class => 'button') %>
+<%= content_for :toolbar, link_to("list", group_matches_path(@match.group), :class => 'button fade') %>
 <h1>Match summary</h1>
 <div class="info">
 Group: <%=h @match.group.name %><br/>

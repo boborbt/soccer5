@@ -1,21 +1,12 @@
-<div class='status'>
-	<h2>Accepted invitations</h2>
-	<% ap_invitations = @match.invitations_with_additional_players %>
-	<%= render :partial => 'matches/players_list_generic', 
-	:locals => {:invitations => @match.accepted_invitations,
-		:additional_players_invitations => ap_invitations } %>			
-</div>
+<h2>Accepted invitations</h2>
+<% ap_invitations = @match.invitations_with_additional_players %>
+<%= render :partial => 'matches/players_list_generic', 
+	:locals => {:invitations => @match.accepted_invitations, :additional_players_invitations => ap_invitations } %>			
 
-<div class='status'>
-	<h2>Rejected invitations</h2>			
-	<%= render :partial => 'matches/players_list_generic', 
-	:locals => { :invitations => @match.rejected_invitations,
-		:quota_class => 'none' } %>
-</div>
+<h2>Rejected invitations</h2>			
+<%= render :partial => 'matches/players_list_generic', 
+	:locals => { :invitations => @match.rejected_invitations, :quota_class => 'none' } %>
 
-<div class='status'>
-	<h2>Pending inviatations</h2>
-	<%= render :partial => 'matches/players_list_generic', 
-	:locals => { :invitations => @match.unresponded_invitations,
-		:quota_class => 'none' } %>		
-</div>
+<h2>Pending inviatations</h2>
+<%= render :partial => 'matches/players_list_generic', 
+	:locals => { :invitations => @match.unresponded_invitations, :quota_class => 'none' } %>		
