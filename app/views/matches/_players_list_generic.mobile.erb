@@ -1,7 +1,7 @@
 <ul>
-	<% counter = 1 %>
-	<% invitations.each do |invitation| %>
-	<li><%= "%d. %s" % [counter, link_to(invitation.player.name, player_path(invitation.player))] %></li>
-	<% counter+=1 %>
-	<% end %>
+<%- counter = 1 -%>
+<%- invitations.each do |invitation| -%>
+<li class="arrow"><%= link_to("#{counter}. #{invitation.player.name}", player_path(invitation.player)) -%></li>
+<%- counter+=1 -%>
+<%- end -%>
 </ul>
