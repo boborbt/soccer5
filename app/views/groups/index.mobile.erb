@@ -1,4 +1,5 @@
 <% content_for :title, 'Groups' %>
+<% content_for :back, '' %>
 <ul>
 <% for group in @groups %>
 <li class="arrow"> 
@@ -9,4 +10,8 @@
 
 <br />
 
-<%= if_authorized?(:action => 'new') { link_to 'New group', new_group_path } %>
+<% if logged_in? %>
+	<%= link_to( "logout", logout_path, :class => 'button fade') %>
+<% else %>
+	<%= link_to( "login", login_path, :class => 'button fade') %>
+<% end %>
