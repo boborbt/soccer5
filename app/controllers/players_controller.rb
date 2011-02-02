@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  skip_before_filter :login_required, :only => [:show]
   # GET /players
   # GET /players.xml
   def index
