@@ -16,13 +16,6 @@ class UsersControllerTest < ActionController::TestCase
     login_as(:admin)
   end
 
-  def test_should_allow_signup
-    assert_difference 'User.count' do
-      create_user
-      assert_response :redirect
-    end
-  end
-
   def test_should_require_login_on_signup
     assert_no_difference 'User.count' do
       create_user(:login => nil)
