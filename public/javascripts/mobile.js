@@ -1,1 +1,1 @@
-$.jQTouch({}); 
+$.jQTouch({ icon: 'images/appicon.png'} ); 
