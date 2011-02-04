@@ -4,4 +4,10 @@
 <li class="arrow"><%= link_to("#{counter}. #{invitation.player.name}", player_path(invitation.player)) -%></li>
 <%- counter+=1 -%>
 <%- end -%>
+<%- additional_players_invitations.each do |invitation| -%>
+	<% invitation.num_additional_players.times do %>		
+		<li class="arrow"><%= link_to("#{counter}. Brought by #{invitation.player.name}", player_path(invitation.player)) -%></li>
+		<%- counter+=1 -%>
+	<% end %>
+<%- end unless !defined?(additional_players_invitations) -%>
 </ul>

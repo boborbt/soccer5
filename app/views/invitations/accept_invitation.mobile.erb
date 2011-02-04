@@ -1,0 +1,17 @@
+<div class="info"><%= @message %></div>
+
+<% unless @invitation.nil? %>
+		<% form_tag :controller => 'invitations', 
+				 	:action => 'set_additional_players', 
+					:acceptance_code => @invitation.acceptance_code,
+					:class => 'form' do -%> 
+			<ul class="rounded">
+			 <li><%= text_field_tag( :num_additional_players, 
+									 nil, 
+ 									 :placeholder => 'Please specify how many additional players you are bringing with you') %></li>
+			</ul>
+			 <%= submit_tag "submit", :class => 'button' %>
+			
+		<% end %>		
+		<%= link_to 'Go to current match', match_path(@invitation.match), :class => 'whiteButton fade' %>
+<% end %>
