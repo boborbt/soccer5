@@ -19,6 +19,8 @@ class Role < ActiveRecord::Base
     begin
       Role.find_by_name(name).id
     rescue
+      logger.warn( "Error while retrieving role object: could not find #{name} role." +
+         " Reason of the error: [#{$!}]. Returning false" )
       false
     end
   end
