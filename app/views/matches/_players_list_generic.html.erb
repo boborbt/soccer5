@@ -6,9 +6,8 @@
 
 %>
 
-<div id="spinner" style="display:none">
-	<%= image_tag 'spinner_big.gif' %>
-</div>
+
+<%= spinner_box %>
 <table>
 	<tr>
 	<th>#</th>
@@ -38,31 +37,31 @@
 													:id => @match, 
 													:player_id => invitation.player),
 								    :update => 'player_list',
-									:loading => %q{$('spinner').show()},:loaded => %q{$('spinner').hide()}} ) ) if user_can_uninvite  %>				
+									:loading => show_spinner} ) ) if user_can_uninvite  %>				
 			<%= content_tag( :td, link_to_remote( "force accept", {
 									:url => url_for(:controller => :invitations,
 													:action => :force_accept,
 													:id => invitation),
 									:update => 'player_list',
-									:loading => %q{$('spinner').show()},:loaded => %q{$('spinner').hide()} } )) if user_can_force_acceptance %>
+									:loading => show_spinner} )) if user_can_force_acceptance %>
 			<%= content_tag( :td, link_to_remote( "force reject", {
 									:url => url_for(:controller => :invitations,
 													:action => :force_reject,
 													:id => invitation),
 									:update => 'player_list',
-									:loading => %q{$('spinner').show()},:loaded => %q{$('spinner').hide()} } )) if user_can_force_rejection %>													
+									:loading => show_spinner } )) if user_can_force_rejection %>													
 			<%= content_tag( :td, link_to_remote( "+ friend", {
 									:url => url_for( :controller => :invitations,
 													 :action => :add_friend,
 													 :id => invitation),
 									:update => 'player_list',
-									:loading => %q{$('spinner').show()},:loaded => %q{$('spinner').hide()}})) if user_can_uninvite %>
+									:loading => show_spinner })) if user_can_uninvite %>
 			<%= content_tag( :td, link_to_remote( "- friend", {
 									:url => url_for( :controller => :invitations,
 													 :action => :remove_friend,
 													 :id => invitation),
 									:update => 'player_list',
-									:loading => %q{$('spinner').show()},:loaded => %q{$('spinner').hide()}})) if user_can_uninvite %>
+									:loading => show_spinner })) if user_can_uninvite %>
 		</tr>				
 	<% end %>
 	<% additional_players_invitations.each do |invitation| %>
