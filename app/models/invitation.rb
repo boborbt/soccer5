@@ -61,4 +61,8 @@ class Invitation < ActiveRecord::Base
     self.number_of_sent_mails += 1
     self.save!
   end
+  
+  def find_by_code( params )
+    find_by_acceptance_code( params[:acceptance_code] ) || find_by_refusal_code( params[:refusal_code] )
+  end
 end

@@ -19,33 +19,47 @@ class InvitationsController < ApplicationController
 
 
   def set_additional_players
-    @invitation = nil
-    if !params[:acceptance_code].nil?
-      @invitation = Invitation.find_by_acceptance_code(params[:acceptance_code])
-    elsif !params[:refusal_code].nil?
-      @invitation = Invitation.find_by_refusal_code(params[:refusal_code])        
-    end
-
+    @invitation = Invitation.find_by_code(params)
     raise InvitationError.new("No acceptance nor refusal code found!") if @invitation.nil?
-
-    if @invitation.nil?
-      flash[:notice] = 'The acceptance code you provided is invalid!'
-      return
-    end
-
-    num_additional_players = 0
-
-    unless params[:num_additional_players].nil?
-      num_additional_players = params[:num_additional_players].to_i
-    end
-
-    @invitation.num_additional_players = num_additional_players
+    
+    @invitation.num_additional_players = params[:num_additional_players] && params[:num_additional_players].to_i || 0    
     @invitation.save!
+    
     redirect_to group_current_match_path(@invitation.match.group)
   rescue InvitationError
     redirect_to group_current_match_path(@invitation.match.group)
     flash[:error] = 'A problem occurred:' + $!.message
     logger.info(flash[:error])
+  end
+  
+  def add_friend
+    @invitation = Invitation.find(params[:id])
+    raise InvitationError.new("No invitation found (#{params[:id]})") if @invitation.nil?
+    
+    @invitation.num_additional_players ||= 0
+    @invitation.num_additional_players += 1
+    @invitation.save!
+    
+    @match = @invitation.match
+    render :partial => 'matches/players_list'    
+  rescue InvitationError
+      flash[:error] = $!.message
+      render :partial => 'matches/players_list', :locals => { :error => $!.message }
+  end
+  
+  def remove_friend
+      @invitation = Invitation.find(params[:id])
+      raise InvitationError.new("No invitation found (#{params[:id]})") if @invitation.nil?
+
+      @invitation.num_additional_players ||= 0
+      @invitation.num_additional_players -= 1 unless @invitation.num_additional_players <= 0
+      @invitation.save!
+
+      @match = @invitation.match
+      render :partial => 'matches/players_list'    
+    rescue InvitationError
+        flash[:error] = $!.message
+        render :partial => 'matches/players_list', :locals => { :error => $!.message }    
   end
 
   def reject_invitation

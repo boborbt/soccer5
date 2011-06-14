@@ -105,3 +105,14 @@
 	color: #F00;
 }
 
+#spinner {
+	border: 2px solid;
+	background-color: white;
+	font: 300% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+	display: block;
+	position: absolute;
+	left: 40%;
+	padding: 50px;
+}
+
+
