@@ -6,6 +6,11 @@ class Invitation < ActiveRecord::Base
   
   validates_uniqueness_of :acceptance_code, :refusal_code
   
+  def Invitation.find_by_code( params )
+    find_by_acceptance_code( params[:acceptance_code] ) || find_by_refusal_code( params[:refusal_code] )
+  end
+  
+  
   def description
     [self.player.name, self.match.location.name, self.match.date.to_s, self.match.time.to_s].join('-')
   end
@@ -60,9 +65,5 @@ class Invitation < ActiveRecord::Base
     InvitationsMailer.deliver_close_convocations(self)
     self.number_of_sent_mails += 1
     self.save!
-  end
-  
-  def find_by_code( params )
-    find_by_acceptance_code( params[:acceptance_code] ) || find_by_refusal_code( params[:refusal_code] )
-  end
+  end  
 end
