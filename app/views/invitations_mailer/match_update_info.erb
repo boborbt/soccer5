@@ -1,0 +1,12 @@
+Cari tutti,
+	c'è stato un aggiornamento relativo al match corrente.
+
+In particolare il giocatore <%= @invitation.player.name %>:
+	<%= %Q{- ha cambiato il suo stato di adesione (da '#{@invitation.status_was}' a '#{@invitation.status}')} if @invitation.status_changed? -%>
+	<%= %Q{- ha cambiato il numero di amici che ha invitato (da #{@invitation.num_additional_players_was} a #{@invitation.num_additional_players})} if @invitation.num_additional_players_changed? -%>
+
+Come sempre potete consultare la situazione delle adesioni visitando l'url:
+	<%= match_url(@invitation.match, {:protocol => 'https'}) %>
+
+Ciao,
+   Roberto

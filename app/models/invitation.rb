@@ -14,22 +14,6 @@ class Invitation < ActiveRecord::Base
   def description
     [self.player.name, self.match.location.name, self.match.date.to_s, self.match.time.to_s].join('-')
   end
-  
-  def before_create
-    self.acceptance_code = Digest::SHA1.hexdigest( 'acceptance' + player.name + match.id.to_s )
-    self.refusal_code =  Digest::SHA1.hexdigest( 'rejection' + player.name + match.id.to_s )
-  end
-
-  
-  def after_create
-    if player.autoaccept_invitations(self.match)
-      self.accept
-    end
-    
-    InvitationsMailer.deliver_invitation(self)
-    self.number_of_sent_mails += 1
-    self.save!
-  end
     
   def accept
     raise InvitationError.new("The match date is in the past! It is too late to accept the invitation.") unless match.datetime.future?
@@ -54,16 +38,19 @@ class Invitation < ActiveRecord::Base
   def accepted?
     self.status == STATUSES[:accepted]
   end
+
+  def increment_sent_mails
+    self.number_of_sent_mails += 1
+    self.save!    
+  end
   
   def solicit
     InvitationsMailer.deliver_solicitation(self)
-    self.number_of_sent_mails += 1
-    self.save!
+    increment_sent_mails
   end
   
   def close_convocations
     InvitationsMailer.deliver_close_convocations(self)
-    self.number_of_sent_mails += 1
-    self.save!
+    increment_sent_mails
   end  
 end

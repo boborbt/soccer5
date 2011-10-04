@@ -132,7 +132,7 @@ class Match < ActiveRecord::Base
     players = self.group.players_to_autoinvite
     players.each do |player|
       # the inclusion in self.players creates the invitation causing the mail
-      # sending (see class Invitation, method before and after create).
+      # sending (see class InvitationObserver, methods before and after create).
       self.players << player
     end
         
