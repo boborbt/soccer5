@@ -33,7 +33,10 @@
 			<% @match.uninvited_players.each do |player| %>
 				<% div_for player do %>
 					<%= player.name %> 
-					<%= link_to_remote "Invite", :url => url_for(opts.merge(:player_id => player)), :update => 'player_list' %>
+					<%= link_to_remote "Invite", :url => url_for(opts.merge(:player_id => player)), 
+												 :update => 'player_list',
+												 :loading => visual_effect(:appear, 'spinner', {:duration => 0.1}),
+												 :loaded => visual_effect(:fade, 'spinner', {:duration => 0.1}) %>
 				<% end %>
 			<% end %>
 		</div>

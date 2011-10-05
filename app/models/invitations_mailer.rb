@@ -1,4 +1,6 @@
 class InvitationsMailer < ActionMailer::Base
+  helper :invitations
+
   ADMINISTRATOR_EMAIL = 'boborbt@gmail.com'
 
   def invitation(invitation, sent_at = Time.now)
