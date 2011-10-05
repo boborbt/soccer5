@@ -21,10 +21,20 @@ class InvitationObserver < ActiveRecord::Observer
   end
 
   def after_save(invitation)
-	return if invitation.match.status != Match::STATUSES[:closed]
-	return unless (invitation.num_additional_players_changed? || invitation.status_changed?)
-		
-	InvitationsMailer.deliver_match_update_info(invitation)
-	invitation.match.invitations.each { |i| i.increment_sent_mails } 
-  end	
+  	return if invitation.match.status != Match::STATUSES[:closed]
+  	return unless InvitationObserver.interesting_status_change(invitation)
+    	
+  	InvitationsMailer.deliver_match_update_info(invitation)
+  	invitation.match.unrejected_invitations.each { |i| i.increment_sent_mails } 
+  end
+
+  # The status change is interesting if it actually changed the number of
+  # players for the match.
+  def InvitationObserver.interesting_status_change(invitation)
+    diff_in_players_count  = invitation.num_additional_players - invitation.num_additional_players_was
+    diff_in_players_count += 1 if invitation.status_changed? && invitation.status == Invitation::STATUSES[:accepted]
+    diff_in_players_count -= 1 if invitation.status_changed? && invitation.status_was == Invitation::STATUSES[:accepted]
+    
+    return diff_in_players_count != 0 && !invitation.match.interested_players.blank?
+  end
 end

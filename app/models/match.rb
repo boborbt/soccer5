@@ -1,7 +1,12 @@
 class Match < ActiveRecord::Base
   belongs_to  :location
   has_many    :invitations, :dependent => :destroy
+  has_many    :unrejected_invitations, :class_name => 'Invitation',
+                :conditions => [ 'status != ?', Invitation::STATUSES[:rejected]]
+
   has_many    :players, :through => :invitations
+  has_many    :interested_players, :through => :unrejected_invitations, :source => :player
+
   belongs_to  :group
   
   validates_presence_of :location

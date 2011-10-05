@@ -1,8 +1,8 @@
 class Invitation < ActiveRecord::Base
-  belongs_to :match
-  belongs_to :player
-  
   STATUSES = { :accepted => 'accepted', :rejected => 'rejected', :pending => 'pending' }
+
+  belongs_to :match
+  belongs_to :player  
   
   validates_uniqueness_of :acceptance_code, :refusal_code
   
@@ -32,7 +32,7 @@ class Invitation < ActiveRecord::Base
   end
   
   def status
-    self[:status] || STATUSES[:pending]
+    self[:status] != '' && self[:status] || STATUSES[:pending]
   end
   
   def accepted?

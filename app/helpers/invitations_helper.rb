@@ -1,5 +1,5 @@
 module InvitationsHelper
-	def format_invitation_status(status)
-		status != '' && status || 'unspecified'
+	def format_status(status)
+		status != '' && status || 'pending'
 	end
 end

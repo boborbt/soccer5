@@ -1,6 +1,6 @@
 class InvitationsMailer < ActionMailer::Base
   helper :invitations
-
+  
   ADMINISTRATOR_EMAIL = 'boborbt@gmail.com'
 
   def invitation(invitation, sent_at = Time.now)
@@ -34,7 +34,7 @@ class InvitationsMailer < ActionMailer::Base
 
   def match_update_info(invitation, sent_at = Time.now )
     subject     invitation.match.description + " - aggiornamento"
-    recipients  invitation.match.players.map { |p| p.email }
+    recipients  invitation.match.interested_players.map { |p| p.email }
     from        ADMINISTRATOR_EMAIL
     sent_on     sent_at
     body        :invitation => invitation    
