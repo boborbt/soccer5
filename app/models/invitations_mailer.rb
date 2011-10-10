@@ -33,7 +33,7 @@ class InvitationsMailer < ActionMailer::Base
   end
 
   def match_update_info(invitation, sent_at = Time.now )
-    subject     invitation.match.description + " - aggiornamento"
+    subject     invitation.match.description + " - aggiornamento - numero presenti #{invitation.match.number_of_coming_players}"
     recipients  invitation.match.interested_players.map { |p| p.email }
     from        ADMINISTRATOR_EMAIL
     sent_on     sent_at
