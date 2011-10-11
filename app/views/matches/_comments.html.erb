@@ -2,7 +2,7 @@
 <dl>
 	<% for comment in @match.comments do %>
 	<dt>On <%= comment.created_at.to_s(:date) %> <%= comment.player.name %> commented:
-	<dd><%= h comment.body %></dd>
+	<dd><pre><%= h comment.body %></pre></dd>
 	<% end %>
 </dl>
 </div>
