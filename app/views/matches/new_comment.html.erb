@@ -1,0 +1,6 @@
+<% form_tag :controller => 'match', 
+		 	:action => 'create_comment', 
+			:acceptance_code => @invitation.acceptance_code do -%> 
+	<%= text_field_tag( 'comment[body]', '' ) %>
+	<%= submit_tag "submit" %>
+<% end %>		

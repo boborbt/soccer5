@@ -6,6 +6,7 @@ class Match < ActiveRecord::Base
 
   has_many    :players, :through => :invitations
   has_many    :interested_players, :through => :unrejected_invitations, :source => :player
+  has_many    :comments
 
   belongs_to  :group
   
@@ -132,6 +133,14 @@ class Match < ActiveRecord::Base
   # --------------------------------------------------------------------------------
   # Actions 
   # --------------------------------------------------------------------------------
+
+  def add_comment(player, body)
+    comment = Comment.new(:player => player, :body => body, :match_id => self.id)
+    self.comments << comment
+    self.save!
+
+    CommunicationsMailer.deliver_comment(comment)
+  end
   
   def autoinvite_players!
     players = self.group.players_to_autoinvite

@@ -1,0 +1,8 @@
+<div class="comments">
+<dl>
+	<% for comment in @match.comments do %>
+	<dt>On <%= comment.created_at.to_s(:date) %> <%= comment.player.name %> commented:
+	<dd><%= h comment.body %></dd>
+	<% end %>
+</dl>
+</div>

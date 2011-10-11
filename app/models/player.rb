@@ -4,6 +4,7 @@ class Player < ActiveRecord::Base
   has_many :matches, :through => :invitations
   has_many :groupings, :dependent => :destroy
   has_many :groups, :through => :groupings
+  has_many :comments
   
   validates_uniqueness_of :name, :case_sensitive => false
   

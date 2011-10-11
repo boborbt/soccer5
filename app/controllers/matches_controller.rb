@@ -163,5 +163,4 @@ class MatchesController < ApplicationController
     @match.reopen_convocations!
     render :action => 'show', :id => @match
   end
-  
 end

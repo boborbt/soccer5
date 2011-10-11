@@ -22,6 +22,15 @@ visita l'url (vedi anche la nota [2]):
 				:only_path => false,
 				:protocol => 'https' %>
 
+Se vuoi inviare un commento a tutti i giocatori che non hanno ancora rifiutato
+l'invito visita l'url:
+	<%= url_for :controller => :comments,
+				:action => :new,
+				:match_id => @invitation.match.id,
+				:acceptance_code => @invitation.acceptance_code,
+				:only_path => false,
+				:protocol => 'https' %>
+
 In ogni caso puoi consultare la situazione delle adesioni visitando l'url:
 	<%= match_url(@invitation.match, {:protocol => 'https'}) %>
 

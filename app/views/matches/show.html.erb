@@ -41,6 +41,8 @@ Status: <%= @match.status %>
 	[autoinvite_link,solicit_link,close_convocations_link,reopen_convocations_link].compact.join(' | ')
 %>
 
+<%= render :partial => 'comments' %>
+
 <span id='spinner' style='display:none'><%= image_tag 'spinner.gif' %></span><br/>
 
 <%= edit_link = if_authorized?(edit_match_path(@match)) { |opts| link_to( 'Edit', opts ) }

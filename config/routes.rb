@@ -5,8 +5,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource  :session
   map.resources :groups do |group|
-    group.resources :matches, :shallow => true
+    group.resources :matches, :shallow => true do |match|
+      match.resources :comments, :only => [:new, :create]
+    end
   end
+
+
   
   map.group_current_match '/groups/:group_id/current_match',  {:controller => 'matches', :action => 'current' }
   map.group_last_match    '/groups/:group_id/last_match',     {:controller => 'matches', :action => 'last' }

@@ -1,0 +1,8 @@
+<h1>New Comment by <%= @invitation.player.name %></h1>
+<% form_tag :controller => 'comments', 
+		 	:action => 'create', 
+			:acceptance_code => @invitation.acceptance_code do -%> 
+	<%= text_area_tag( 'comment[body]', '', :size => '80x15' ) %>
+	<br>
+	<%= submit_tag "submit" %>
+<% end %>		

@@ -110,4 +110,4 @@ Rails::Initializer.run do |config|
 end
 
 ExceptionNotifier.exception_recipients = %w(esposito@di.unito.it)
-
+Time::DATE_FORMATS[:date] = "%A, %B %d, (%H:%M)"
