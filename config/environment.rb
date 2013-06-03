@@ -88,8 +88,8 @@ Rails::Initializer.run do |config|
     :port => 587, 
     :domain => "gmail.com", 
     :authentication => :plain, 
-    :user_name => "boborbt@gmail.com", 
-    :password => "xhostbb50" 
+    :user_name => "", 
+    :password => "" 
   } 
 
 
